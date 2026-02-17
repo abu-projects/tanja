@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marknate | Klar. Inspirierend. Wirksam.</title>
+    <meta name="description"
+        content="Marknate - Ihr Marketing Profi für KMUs und Einzelfirmen. Strategie, Branding, Events und mehr.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+
+    <!-- Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            DEFAULT: '#129d63', // Primary Green
+                            light: '#b9f1d1',   // Fresh Mint
+                            dark: '#129d63',
+                            text: '#111111',    // Dark Text
+                            gray: '#111111',    // Muted -> now Dark
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Decalotype', 'sans-serif'],
+                    },
+                    container: {
+                        center: true,
+                        padding: '1.5rem',
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @font-face {
+            font-family: 'Decalotype';
+            src: url('Decalotype/WEB/Decalotype-Regular.woff2') format('woff2'),
+                url('Decalotype/WEB/Decalotype-Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Decalotype';
+            src: url('Decalotype/WEB/Decalotype-Medium.woff2') format('woff2'),
+                url('Decalotype/WEB/Decalotype-Medium.woff') format('woff');
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Decalotype';
+            src: url('Decalotype/WEB/Decalotype-SemiBold.woff2') format('woff2'),
+                url('Decalotype/WEB/Decalotype-SemiBold.woff') format('woff');
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Decalotype';
+            src: url('Decalotype/WEB/Decalotype-Bold.woff2') format('woff2'),
+                url('Decalotype/WEB/Decalotype-Bold.woff') format('woff');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Decalotype';
+            src: url('Decalotype/WEB/Decalotype-Black.woff2') format('woff2'),
+                url('Decalotype/WEB/Decalotype-Black.woff') format('woff');
+            font-weight: 900;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #111111;
+            background-color: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Decalotype', sans-serif;
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        /* Wavy Divider */
+        .wave-divider {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            transform: rotate(180deg);
+        }
+
+        .wave-divider svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 60px;
+        }
+
+        .wave-divider .shape-fill {
+            fill: #FFFFFF;
+        }
+
+        /* Modal targeting */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 60;
+            background: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal:target {
+            display: flex;
+        }
+
+        /* Hero floating animations */
+        @keyframes floatUp {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        @keyframes floatDown {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(10px);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes drawLine {
+            from {
+                stroke-dashoffset: 200;
+            }
+
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .hero-float-1 {
+            animation: floatUp 4s ease-in-out infinite;
+        }
+
+        .hero-float-2 {
+            animation: floatDown 5s ease-in-out infinite;
+        }
+
+        .hero-float-3 {
+            animation: floatUp 6s ease-in-out infinite;
+        }
+
+        .hero-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .hero-fade-in-right {
+            animation: fadeInRight 0.8s ease-out 0.3s forwards;
+            opacity: 0;
+        }
+
+        .hero-fade-in-left {
+            animation: fadeInLeft 0.8s ease-out 0.5s forwards;
+            opacity: 0;
+        }
+
+        .hero-fade-in-up-delay {
+            animation: fadeInUp 0.8s ease-out 0.6s forwards;
+            opacity: 0;
+        }
+
+        .dotted-line {
+            stroke-dasharray: 6, 6;
+            stroke-dashoffset: 200;
+            animation: drawLine 2s ease-out 0.8s forwards;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group h-full py-2">
+                <!-- Using img tag for user provided logo -->
+                <img src="logo.png" alt="Marknate Logo" class="h-full w-auto object-contain max-h-16">
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#philosophie"
+                    class="text-sm font-semibold uppercase tracking-wide text-brand-text hover:text-brand transition-colors">Über
+                    mich</a>
+                <a href="#schwerpunkte"
+                    class="text-sm font-semibold uppercase tracking-wide text-brand-text hover:text-brand transition-colors">Angebot</a>
+                <a href="#preise"
+                    class="text-sm font-semibold uppercase tracking-wide text-brand-text hover:text-brand transition-colors">Preise</a>
+                <a href="#kontakt"
+                    class="px-6 py-2.5 bg-brand text-white text-sm font-semibold rounded-full hover:bg-brand-dark transition-all shadow-lg hover:shadow-brand/30">
+                    Kontakt
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden p-2 text-brand-text"
+                onclick="const m = document.getElementById('mobile-menu'); m.classList.toggle('hidden');">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                    </path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full left-0 top-20 shadow-xl">
+            <div class="flex flex-col p-6 gap-4">
+                <a href="#philosophie" class="text-lg font-medium text-brand-text block p-2 hover:bg-gray-50 rounded"
+                    onclick="document.getElementById('mobile-menu').classList.add('hidden')">Über mich</a>
+                <a href="#schwerpunkte" class="text-lg font-medium text-brand-text block p-2 hover:bg-gray-50 rounded"
+                    onclick="document.getElementById('mobile-menu').classList.add('hidden')">Angebot</a>
+                <a href="#preise" class="text-lg font-medium text-brand-text block p-2 hover:bg-gray-50 rounded"
+                    onclick="document.getElementById('mobile-menu').classList.add('hidden')">Preise</a>
+                <a href="#kontakt" class="text-lg font-medium text-brand block p-2 hover:bg-gray-50 rounded"
+                    onclick="document.getElementById('mobile-menu').classList.add('hidden')">Kontakt</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header
+        class="relative min-h-[90vh] flex items-center pt-24 pb-12 overflow-hidden bg-gradient-to-br from-white to-brand-light">
+        <!-- Background Decor -->
+        <div
+            class="absolute top-0 right-0 w-1/2 h-full bg-brand-light/50 skew-x-12 translate-x-32 hidden lg:block opacity-60">
+        </div>
+        <div
+            class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-brand/5 rounded-full blur-[100px] pointer-events-none">
+        </div>
+
+        <div class="container max-w-7xl mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8 animate-[fadeIn_0.8s_ease-out]">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-1.5 bg-white border border-brand-light rounded-full shadow-sm text-brand font-bold uppercase tracking-wider text-xs">
+                    <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+                    Dein Marketing Profi
+                </div>
+                <h1 class="text-5xl md:text-7xl font-extrabold text-brand leading-[1.1] tracking-tight">
+                    KLAR.<br>
+                    INSPIRIEREND.<br>
+                    WIRKSAM.
+                </h1>
+                <p class="text-xl text-brand-text max-w-lg leading-relaxed">
+                    Durch meine Marketing Expertise hole ich das Beste aus Ihrem Unternehmen heraus.
+                </p>
+                <div class="flex flex-wrap gap-4 pt-4">
+                    <a href="#kontakt"
+                        class="px-8 py-4 bg-brand text-white font-bold rounded-xl hover:bg-brand-dark transition-all transform hover:-translate-y-1 shadow-lg shadow-brand/20 flex items-center gap-2 group">
+                        Kostenlose Offerte verlangen
+                        <span class="iconify group-hover:translate-x-1 transition-transform"
+                            data-icon="lucide:arrow-right"></span>
+                    </a>
+                    <a href="#schwerpunkte"
+                        class="px-8 py-4 bg-white text-brand-text border border-gray-200 font-bold rounded-xl hover:bg-gray-50 transition-all flex items-center gap-2">
+                        <span class="iconify" data-icon="lucide:layers"></span>
+                        Mein Angebot
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hero Image / Visual -->
+            <div class="relative h-[500px] md:h-[600px] hidden lg:block">
+
+                <!-- SVG Dotted Lines Connecting Icons -->
+                <svg class="absolute inset-0 w-full h-full z-0 pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Line from top-left icon to photo -->
+                    <line x1="45" y1="120" x2="180" y2="180" stroke="#129d63" stroke-width="1.5" class="dotted-line"
+                        opacity="0.4" />
+                    <!-- Line from bottom-left icon to photo -->
+                    <line x1="45" y1="240" x2="180" y2="280" stroke="#129d63" stroke-width="1.5" class="dotted-line"
+                        opacity="0.4" />
+                    <!-- Line from photo to verified card -->
+                    <path d="M 420 180 Q 480 160 500 130" stroke="#129d63" stroke-width="1.5" fill="none"
+                        class="dotted-line" opacity="0.4" />
+                </svg>
+
+                <!-- Hero Photo -->
+                <div class="absolute left-[15%] top-[5%] w-[55%] h-[80%] z-10 hero-fade-in-up">
+                    <img src="hero.png" alt="Tanja Jans – Marknate"
+                        class="w-full h-full object-cover object-top rounded-3xl grayscale hover:grayscale-0 transition-all duration-700">
+                </div>
+
+                <!-- Floating Icon Card: Building (top-left) -->
+                <div class="absolute left-0 top-[12%] z-20 hero-fade-in-left hero-float-1">
+                    <div
+                        class="w-16 h-16 bg-brand-light rounded-2xl shadow-lg flex items-center justify-center border border-brand/10">
+                        <span class="iconify text-brand" data-icon="lucide:building-2" data-width="28"></span>
+                    </div>
+                </div>
+
+                <!-- Floating Icon Card: Megaphone (bottom-left) -->
+                <div class="absolute left-0 top-[35%] z-20 hero-fade-in-left hero-float-2"
+                    style="animation-delay: 0.2s;">
+                    <div
+                        class="w-16 h-16 bg-brand-light rounded-2xl shadow-lg flex items-center justify-center border border-brand/10">
+                        <span class="iconify text-brand" data-icon="lucide:megaphone" data-width="28"></span>
+                    </div>
+                </div>
+
+                <!-- Verified Badge Card (top-right) -->
+                <div class="absolute right-0 top-[18%] z-20 hero-fade-in-right hero-float-3">
+                    <div
+                        class="bg-white/90 backdrop-blur-md rounded-2xl shadow-xl p-5 border border-brand-light min-w-[180px]">
+                        <div class="flex flex-col items-center gap-2">
+                            <div class="w-12 h-12 rounded-full bg-brand text-white flex items-center justify-center">
+                                <span class="iconify" data-icon="lucide:check" data-width="24"></span>
+                            </div>
+                            <p class="font-bold text-brand-text text-lg">Verified!</p>
+                            <p class="text-sm text-brand-gray">100% Client Satisfied</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart Card (bottom) -->
+                <div class="absolute bottom-0 left-[10%] right-[5%] z-20 hero-fade-in-up-delay">
+                    <div class="bg-white/90 backdrop-blur-md rounded-2xl shadow-xl p-5 border border-brand-light">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="font-bold text-brand-text text-lg">KMU Wachstum 2026</h4>
+                            <div class="flex items-center gap-2 text-xs text-brand-gray">
+                                <span>Monatlich / Jährlich</span>
+                                <div class="w-9 h-5 bg-brand-light rounded-full relative">
+                                    <div class="w-4 h-4 bg-brand rounded-full absolute right-0.5 top-0.5"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- SVG Chart -->
+                        <svg viewBox="0 0 500 80" class="w-full h-16" xmlns="http://www.w3.org/2000/svg">
+                            <polyline fill="none" stroke="#129d63" stroke-width="2.5" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                points="10,65 50,60 100,58 150,50 200,52 250,40 300,35 350,20 400,22 450,10 490,8" />
+                            <polyline fill="url(#chartGradient)" stroke="none"
+                                points="10,65 50,60 100,58 150,50 200,52 250,40 300,35 350,20 400,22 450,10 490,8 490,80 10,80"
+                                opacity="0.15" />
+                            <defs>
+                                <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="#129d63" />
+                                    <stop offset="100%" stop-color="#129d63" stop-opacity="0" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <div class="flex justify-between text-xs text-brand-gray mt-2 font-medium">
+                            <span>Jan</span><span>Feb</span><span>Mär</span><span>Apr</span><span>Mai</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Okt</span><span>Nov</span><span>Dez</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- Philosophie / Über mich Section -->
+    <section id="philosophie" class="py-32 bg-white relative overflow-hidden">
+        <!-- Decoration -->
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-light to-transparent">
+        </div>
+
+        <div class="container max-w-4xl mx-auto px-6 text-center relative z-10">
+            <h2 class="text-4xl md:text-5xl font-bold mb-4 text-brand-text">MEINE PHILOSOPHIE</h2>
+            <p class="text-brand-gray text-lg mb-16 uppercase tracking-widest font-semibold">Was steht hinter
+                marknate..?</p>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-24">
+                <div
+                    class="p-10 rounded-3xl bg-white border border-brand-light hover:border-brand shadow-lg hover:shadow-brand/10 transition-all group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10">
+                        <span class="iconify text-brand w-24 h-24" data-icon="lucide:pen-tool"></span>
+                    </div>
+                    <h3
+                        class="text-3xl font-extrabold text-brand mb-4 group-hover:scale-110 transition-transform relative z-10">
+                        MARK</h3>
+                    <p class="font-medium text-brand-text text-lg relative z-10">Branding</p>
+                </div>
+                <div
+                    class="p-10 rounded-3xl bg-white border border-brand-light hover:border-brand shadow-lg hover:shadow-brand/10 transition-all group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10">
+                        <span class="iconify text-brand w-24 h-24" data-icon="lucide:briefcase"></span>
+                    </div>
+                    <h3
+                        class="text-3xl font-extrabold text-brand mb-4 group-hover:scale-110 transition-transform relative z-10">
+                        MARKT</h3>
+                    <p class="font-medium text-brand-text text-lg relative z-10">Business</p>
+                </div>
+                <div
+                    class="p-10 rounded-3xl bg-white border border-brand-light hover:border-brand shadow-lg hover:shadow-brand/10 transition-all group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10">
+                        <span class="iconify text-brand w-24 h-24" data-icon="lucide:sparkles"></span>
+                    </div>
+                    <h3
+                        class="text-3xl font-extrabold text-brand mb-4 group-hover:scale-110 transition-transform relative z-10">
+                        NATE</h3>
+                    <p class="font-medium text-brand-text text-lg relative z-10">Erzeugen<br>Erneuern<br>Kreieren</p>
+                </div>
+            </div>
+
+            <div class="relative max-w-3xl mx-auto">
+                <span class="absolute -top-10 -left-10 text-9xl text-brand/10 font-serif leading-none">“</span>
+                <blockquote
+                    class="text-2xl md:text-3xl font-display font-medium text-brand-text leading-relaxed relative z-10">
+                    Durch meine Marketing Expertise hole ich das Beste aus Ihrem Unternehmen heraus.
+                </blockquote>
+                <cite class="block mt-8 flex items-center justify-center gap-4">
+                    <div class="h-px w-12 bg-brand"></div>
+                    <span class="text-brand font-bold not-italic tracking-wide uppercase">Tanja Jans</span>
+                    <div class="h-px w-12 bg-brand"></div>
+                </cite>
+            </div>
+
+
+        </div>
+    </section>
+
+    <!-- Schwerpunkte / Angebot Section -->
+    <section id="schwerpunkte" class="py-32 bg-brand-light/30 relative">
+        <div class="container max-w-7xl mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row gap-20">
+                <!-- Title Block -->
+                <div class="lg:w-1/3 pt-10">
+                    <div class="sticky top-32">
+                        <div class="w-16 h-2 bg-brand mb-8"></div>
+                        <h2
+                            class="text-4xl md:text-6xl lg:text-4xl xl:text-[2.5em] font-bold text-brand-text mb-8 leading-none break-words">
+                            MEINE<br>
+                            <span class="text-brand">SCHWERPUNKTE</span>
+                        </h2>
+                        <p class="text-brand-gray text-xl leading-relaxed mb-8">
+                            Als Ihr externer Marketing Partner biete ich maßgeschneiderte Lösungen, die genau dort
+                            ansetzen, wo Sie Unterstützung brauchen.
+                        </p>
+                        <a href="#kontakt"
+                            class="inline-flex items-center gap-2 text-brand font-bold hover:text-brand-dark transition-colors border-b-2 border-brand pb-1">
+                            Jetzt anfragen <span class="iconify" data-icon="lucide:arrow-right"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- List -->
+                <div class="lg:w-2/3 grid md:grid-cols-2 gap-6">
+                    <!-- Service Item -->
+                    <div
+                        class="p-8 rounded-2xl bg-white border border-brand-light hover:border-brand hover:scale-[1.02] transition-all duration-300 group cursor-default shadow-lg shadow-brand-light/20">
+                        <div
+                            class="w-14 h-14 rounded-xl bg-brand-light/50 flex items-center justify-center text-brand mb-6 group-hover:bg-brand group-hover:text-white transition-colors">
+                            <span class="iconify" data-icon="lucide:target" data-width="28"></span>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold mb-2 text-brand-text">Marketing Strategie</h3>
+                        <p class="text-brand-gray text-sm">Entwicklung zielgerichteter
+                            Strategien für nachhaltiges Wachstum.</p>
+                    </div>
+
+                    <!-- Service Item -->
+                    <div
+                        class="p-8 rounded-2xl bg-white border border-brand-light hover:border-brand hover:scale-[1.02] transition-all duration-300 group cursor-default shadow-lg shadow-brand-light/20">
+                        <div
+                            class="w-14 h-14 rounded-xl bg-brand-light/50 flex items-center justify-center text-brand mb-6 group-hover:bg-brand group-hover:text-white transition-colors">
+                            <span class="iconify" data-icon="lucide:palette" data-width="28"></span>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold mb-2 text-brand-text">Branding</h3>
+                        <p class="text-brand-gray text-sm">Aufbau und Pflege einer starken,
+                            unverwechselbaren Marke.</p>
+                    </div>
+
+                    <!-- Service Item -->
+                    <div
+                        class="p-8 rounded-2xl bg-white border border-brand-light hover:border-brand hover:scale-[1.02] transition-all duration-300 group cursor-default shadow-lg shadow-brand-light/20">
+                        <div
+                            class="w-14 h-14 rounded-xl bg-brand-light/50 flex items-center justify-center text-brand mb-6 group-hover:bg-brand group-hover:text-white transition-colors">
+                            <span class="iconify" data-icon="lucide:package-check" data-width="28"></span>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold mb-2 text-brand-text">Product Management</h3>
+                        <p class="text-brand-gray text-sm">Optimierung Ihres Produktlebenszyklus
+                            und Marktpositionierung.</p>
+                    </div>
+
+                    <!-- Service Item -->
+                    <div
+                        class="p-8 rounded-2xl bg-white border border-brand-light hover:border-brand hover:scale-[1.02] transition-all duration-300 group cursor-default shadow-lg shadow-brand-light/20">
+                        <div
+                            class="w-14 h-14 rounded-xl bg-brand-light/50 flex items-center justify-center text-brand mb-6 group-hover:bg-brand group-hover:text-white transition-colors">
+                            <span class="iconify" data-icon="lucide:megaphone" data-width="28"></span>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold mb-2 text-brand-text">Kommunikation</h3>
+                        <p class="text-brand-gray text-sm">Werbe- und Kommunikationsplanung, die
+                            ankommt.</p>
+                    </div>
+
+                    <!-- Service Item -->
+                    <div
+                        class="p-8 rounded-2xl bg-white border border-brand-light hover:border-brand hover:scale-[1.02] transition-all duration-300 group cursor-default shadow-lg shadow-brand-light/20">
+                        <div
+                            class="w-14 h-14 rounded-xl bg-brand-light/50 flex items-center justify-center text-brand mb-6 group-hover:bg-brand group-hover:text-white transition-colors">
+                            <span class="iconify" data-icon="lucide:messages-square" data-width="28"></span>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold mb-2 text-brand-text">Beratung</h3>
+                        <p class="text-brand-gray text-sm">Persönliche Beratung und
+                            Sparringspartner für Ihre Ideen.</p>
+                    </div>
+
+                    <!-- Service Item -->
+                    <div
+                        class="p-8 rounded-2xl bg-white border border-brand-light hover:border-brand hover:scale-[1.02] transition-all duration-300 group cursor-default shadow-lg shadow-brand-light/20">
+                        <div
+                            class="w-14 h-14 rounded-xl bg-brand-light/50 flex items-center justify-center text-brand mb-6 group-hover:bg-brand group-hover:text-white transition-colors">
+                            <span class="iconify" data-icon="lucide:presentation" data-width="28"></span>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold mb-2 text-brand-text">Workshops</h3>
+                        <p class="text-brand-gray text-sm">Events, Workshops und Schulungen für
+                            Ihr Team.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Preise Section -->
+    <section id="preise" class="py-32 bg-brand-light/30">
+        <div class="container max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <h2 class="text-4xl md:text-5xl font-bold text-brand-text mb-6">PREISE</h2>
+                <div class="w-24 h-1 bg-brand mx-auto mb-6"></div>
+                <p class="text-lg text-brand-gray">
+                    Transparenz ist mir wichtig. Jede Zusammenarbeit wird individuell offeriert, basierend auf Ihren
+                    Bedürfnissen.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- Halbtage Card -->
+                <div
+                    class="bg-white p-10 rounded-3xl shadow-xl border border-white hover:border-brand/50 transition-all hover:translate-y-[-5px] duration-300 flex flex-col h-full">
+                    <div class="flex justify-between items-start mb-8 pb-8 border-b border-gray-100">
+                        <div>
+                            <h3 class="text-2xl font-bold text-brand-text mb-2">Halbtage</h3>
+                            <p
+                                class="text-xs text-brand-gray uppercase tracking-wider font-bold bg-gray-100 px-2 py-1 rounded inline-block">
+                                Projektbasis</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-4xl font-bold text-brand relative z-10">580 <span
+                                    class="text-lg text-brand-gray font-normal">CHF</span></div>
+                        </div>
+                    </div>
+                    <ul class="space-y-4 mb-10 flex-grow">
+                        <li class="flex items-start gap-4">
+                            <div
+                                class="mt-1 w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center text-brand shrink-0">
+                                <span class="iconify" data-icon="lucide:check" data-width="12"></span>
+                            </div>
+                            <span class="text-brand-text">Coaching für spezifische Projekte</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div
+                                class="mt-1 w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center text-brand shrink-0">
+                                <span class="iconify" data-icon="lucide:check" data-width="12"></span>
+                            </div>
+                            <span class="text-brand-text">Mitarbeit direkt im Unternehmen</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div
+                                class="mt-1 w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center text-brand shrink-0">
+                                <span class="iconify" data-icon="lucide:check" data-width="12"></span>
+                            </div>
+                            <span class="text-brand-text">Lancierung von Produkten</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div
+                                class="mt-1 w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center text-brand shrink-0">
+                                <span class="iconify" data-icon="lucide:check" data-width="12"></span>
+                            </div>
+                            <span class="text-brand-text">Relaunch & Marktanalysen</span>
+                        </li>
+                    </ul>
+                    <a href="#kontakt"
+                        class="block w-full py-4 text-center border-2 border-brand text-brand font-bold rounded-xl hover:bg-brand hover:text-white transition-all text-sm uppercase tracking-wider">
+                        Offerte anfragen
+                    </a>
+                </div>
+
+                <!-- Einzelstunden Card -->
+                <!-- Einzelstunden Card -->
+                <div
+                    class="bg-brand-text text-white p-10 rounded-3xl shadow-xl shadow-brand-text/20 border border-brand-text hover:border-brand transition-all hover:translate-y-[-5px] duration-300 relative flex flex-col h-full overflow-hidden hidden">
+                    <!-- Kept hidden original for reference if needed, but actually I should just replace it entirely -->
+                </div>
+
+                <div
+                    class="bg-brand-light p-10 rounded-3xl shadow-xl border border-brand/20 hover:border-brand transition-all hover:translate-y-[-5px] duration-300 relative flex flex-col h-full overflow-hidden text-brand-text">
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 bg-white opacity-40 rounded-full blur-3xl -mr-16 -mt-16">
+                    </div>
+
+                    <div class="flex justify-between items-start mb-8 pb-8 border-b border-brand-dark/10 relative z-10">
+                        <div>
+                            <h3 class="text-2xl font-bold text-brand-text mb-2">Einzelstunden</h3>
+                            <p
+                                class="text-xs text-brand-dark/70 uppercase tracking-wider font-bold bg-white/50 px-2 py-1 rounded inline-block">
+                                Flexibel</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-4xl font-bold text-brand relative z-10">160 <span
+                                    class="text-lg text-brand-gray font-normal">CHF</span></div>
+                        </div>
+                    </div>
+                    <ul class="space-y-4 mb-10 flex-grow relative z-10">
+                        <li class="flex items-start gap-4">
+                            <div
+                                class="mt-1 w-5 h-5 rounded-full bg-brand flex items-center justify-center text-white shrink-0">
+                                <span class="iconify" data-icon="lucide:check" data-width="12"></span>
+                            </div>
+                            <span class="text-brand-text">Erstellen der Marketing Strategie</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div
+                                class="mt-1 w-5 h-5 rounded-full bg-brand flex items-center justify-center text-white shrink-0">
+                                <span class="iconify" data-icon="lucide:check" data-width="12"></span>
+                            </div>
+                            <span class="text-brand-text">Sortimentsanalysen mit Massnahmen</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div
+                                class="mt-1 w-5 h-5 rounded-full bg-brand flex items-center justify-center text-white shrink-0">
+                                <span class="iconify" data-icon="lucide:check" data-width="12"></span>
+                            </div>
+                            <span class="text-brand-text">Branding & Social Media Inhalte</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div
+                                class="mt-1 w-5 h-5 rounded-full bg-brand flex items-center justify-center text-white shrink-0">
+                                <span class="iconify" data-icon="lucide:check" data-width="12"></span>
+                            </div>
+                            <span class="text-brand-text">Website Beratung</span>
+                        </li>
+                    </ul>
+                    <a href="#kontakt"
+                        class="block w-full py-4 text-center bg-brand text-white font-bold rounded-xl hover:bg-brand-dark transition-all text-sm uppercase tracking-wider relative z-10 shadow-md">
+                        Termin vereinbaren
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontakt Section -->
+    <section id="kontakt" class="py-32 bg-white relative">
+        <div class="container max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-start">
+                <!-- Info -->
+                <div class="space-y-10 lg:sticky lg:top-32">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-bold text-brand-text mb-6">KONTAKT</h2>
+                        <div class="h-1 w-20 bg-brand mb-6"></div>
+                        <p class="text-xl text-brand-gray leading-relaxed">
+                            Bereit für den nächsten Schritt? Ich freue mich darauf, mit Ihnen zusammenzuarbeiten und Ihr
+                            Unternehmen voranzubringen.
+                        </p>
+                    </div>
+
+                    <div class="space-y-8">
+                        <div class="flex items-center gap-6 group">
+                            <div
+                                class="w-14 h-14 bg-brand-light/50 rounded-2xl flex items-center justify-center text-brand shrink-0 group-hover:bg-brand group-hover:text-white transition-all duration-300 shadow-sm">
+                                <span class="iconify" data-icon="lucide:map-pin" data-width="24"></span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-brand-text text-lg mb-1">Adresse</h4>
+                                <p class="text-brand-gray">Marknate, Tanja Jans GmbH<br>Freudenberg 1, CH-6312
+                                    Steinhausen</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-6 group">
+                            <div
+                                class="w-14 h-14 bg-brand-light/50 rounded-2xl flex items-center justify-center text-brand shrink-0 group-hover:bg-brand group-hover:text-white transition-all duration-300 shadow-sm">
+                                <span class="iconify" data-icon="lucide:phone" data-width="24"></span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-brand-text text-lg mb-1">Telefon</h4>
+                                <a href="tel:+41796729500"
+                                    class="text-brand-gray hover:text-brand transition-colors text-lg font-medium">+41
+                                    79 672 95 00</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-6 group">
+                            <div
+                                class="w-14 h-14 bg-brand-light/50 rounded-2xl flex items-center justify-center text-brand shrink-0 group-hover:bg-brand group-hover:text-white transition-all duration-300 shadow-sm">
+                                <span class="iconify" data-icon="lucide:mail" data-width="24"></span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-brand-text text-lg mb-1">E-Mail</h4>
+                                <a href="mailto:info@marknate.ch"
+                                    class="text-brand-gray hover:text-brand transition-colors text-lg font-medium">info@marknate.ch</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Socials & Profile -->
+                    <div class="pt-10 border-t border-gray-100 flex flex-col sm:flex-row items-center gap-8">
+                        <!-- Portrait Placeholder -->
+                        <div
+                            class="relative h-24 w-24 rounded-full overflow-hidden border-2 border-brand shadow-lg shrink-0">
+                            <!-- Placeholder for Tanja Jans portrait -->
+                            <div
+                                class="w-full h-full bg-gray-200 flex items-center justify-center text-xs text-center text-gray-500">
+                                <img src="hero.jpg" class="w-full h-full object-cover object-top">
+                            </div>
+                            <!-- <img src="user-portrait.jpg" class="w-full h-full object-cover"> -->
+                        </div>
+
+                        <div class="text-center sm:text-left">
+                            <div class="flex gap-4 justify-center sm:justify-start mb-3">
+                                <a href="https://www.linkedin.com/in/tanja-jans-0a991395/" target="_blank"
+                                    class="w-10 h-10 rounded-full bg-brand-text text-white flex items-center justify-center hover:bg-brand hover:-translate-y-1 transition-all shadow-md">
+                                    <span class="iconify" data-icon="lucide:linkedin" data-width="20"></span>
+                                </a>
+                                <a href="https://www.instagram.com/taaanjajans/" target="_blank"
+                                    class="w-10 h-10 rounded-full bg-brand-text text-white flex items-center justify-center hover:bg-brand hover:-translate-y-1 transition-all shadow-md">
+                                    <span class="iconify" data-icon="lucide:instagram" data-width="20"></span>
+                                </a>
+                            </div>
+                            <p class="text-sm text-brand-gray italic">„Auf Linkedin findest du alles über meinen
+                                Background“</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div
+                    class="bg-white p-8 md:p-12 rounded-[2rem] shadow-2xl shadow-brand-light/50 border border-gray-100">
+                    <h3 class="text-2xl font-bold text-brand-text mb-8">Schreiben Sie mir</h3>
+                    <form action="#" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="relative group">
+                                <input type="text" id="vorname"
+                                    class="peer w-full px-4 py-4 rounded-xl bg-gray-50 border border-gray-200 focus:border-brand focus:ring-2 focus:ring-brand/20 outline-none transition-all placeholder-transparent"
+                                    placeholder="Vorname" required>
+                                <label for="vorname"
+                                    class="absolute left-4 top-4 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-brand peer-focus:bg-white peer-focus:px-1 cursor-text peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:bg-white peer-not-placeholder-shown:px-1">Vorname
+                                    *</label>
+                            </div>
+                            <div class="relative group">
+                                <input type="text" id="nachname"
+                                    class="peer w-full px-4 py-4 rounded-xl bg-gray-50 border border-gray-200 focus:border-brand focus:ring-2 focus:ring-brand/20 outline-none transition-all placeholder-transparent"
+                                    placeholder="Nachname" required>
+                                <label for="nachname"
+                                    class="absolute left-4 top-4 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-brand peer-focus:bg-white peer-focus:px-1 cursor-text peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:bg-white peer-not-placeholder-shown:px-1">Nachname
+                                    *</label>
+                            </div>
+                        </div>
+
+                        <div class="relative group">
+                            <input type="email" id="email"
+                                class="peer w-full px-4 py-4 rounded-xl bg-gray-50 border border-gray-200 focus:border-brand focus:ring-2 focus:ring-brand/20 outline-none transition-all placeholder-transparent"
+                                placeholder="E-Mail" required>
+                            <label for="email"
+                                class="absolute left-4 top-4 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-brand peer-focus:bg-white peer-focus:px-1 cursor-text peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:bg-white peer-not-placeholder-shown:px-1">E-Mail
+                                Adresse *</label>
+                        </div>
+
+                        <div class="relative group">
+                            <textarea id="message" rows="5"
+                                class="peer w-full px-4 py-4 rounded-xl bg-gray-50 border border-gray-200 focus:border-brand focus:ring-2 focus:ring-brand/20 outline-none transition-all placeholder-transparent"
+                                placeholder="Nachricht" required></textarea>
+                            <label for="message"
+                                class="absolute left-4 top-4 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-brand peer-focus:bg-white peer-focus:px-1 cursor-text peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:bg-white peer-not-placeholder-shown:px-1">Ihre
+                                Nachricht *</label>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <input type="checkbox" id="privacy"
+                                class="mt-1 w-4 h-4 text-brand rounded border-gray-300 focus:ring-brand cursor-pointer"
+                                required>
+                            <label for="privacy" class="text-sm text-brand-gray cursor-pointer select-none">
+                                Ich stimme zu, dass meine Angaben dauerhaft gespeichert werden. (Datenschutzkonform nach
+                                DSG)
+                            </label>
+                        </div>
+
+                        <button type="submit"
+                            class="w-full py-5 bg-brand text-white font-bold rounded-xl hover:bg-brand-dark transition-all shadow-lg hover:shadow-brand/30 flex items-center justify-center gap-2 group">
+                            <span class="iconify" data-icon="lucide:send"></span>
+                            Nachricht senden
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer with Legal (CH Compliant) -->
+    <footer class="bg-brand-text text-white py-20 border-t border-white/10 relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div
+            class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10 pointer-events-none">
+        </div>
+
+        <div class="container max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-2 space-y-6">
+                    <img src="logo.png" alt="Marknate Logo" class="h-10 w-auto brightness-0 invert opacity-90">
+                    <p class="text-gray-400 max-w-sm leading-relaxed">
+                        Marknate begleitet Schweizer KMUs und Einzelfirmen auf dem Weg zu einer starken Marke und
+                        sichtbarem Erfolg. Klar, Inspirierend, Wirksam.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-6 text-white border-b border-white/10 pb-2 inline-block">Rechtliches
+                    </h4>
+                    <nav class="flex flex-col gap-3">
+                        <a href="#impressum-modal"
+                            class="text-gray-400 hover:text-brand transition-colors flex items-center gap-2">
+                            <span class="w-1 h-1 bg-brand rounded-full"></span>Impressum
+                        </a>
+                        <a href="#datenschutz-modal"
+                            class="text-gray-400 hover:text-brand transition-colors flex items-center gap-2">
+                            <span class="w-1 h-1 bg-brand rounded-full"></span>Datenschutzerklärung
+                        </a>
+                        <a href="#agb-modal"
+                            class="text-gray-400 hover:text-brand transition-colors flex items-center gap-2">
+                            <span class="w-1 h-1 bg-brand rounded-full"></span>AGB
+                        </a>
+                    </nav>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-lg mb-6 text-white border-b border-white/10 pb-2 inline-block">Social
+                        Media</h4>
+                    <div class="flex gap-4">
+                        <a href="https://www.linkedin.com/in/tanja-jans-0a991395/"
+                            class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-brand hover:border-brand transition-all">
+                            <span class="iconify" data-icon="lucide:linkedin" data-width="20"></span>
+                        </a>
+                        <a href="https://www.instagram.com/taaanjajans/"
+                            class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-brand hover:border-brand transition-all">
+                            <span class="iconify" data-icon="lucide:instagram" data-width="20"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+                <p>&copy; 2026 Marknate, Tanja Jans GmbH. Alle Rechte vorbehalten.</p>
+                <div class="flex items-center gap-1">
+                    Made with <span class="text-brand animate-pulse">♥</span> in Switzerland
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Legal Modals -->
+
+    <!-- Impressum Modal -->
+    <div id="impressum-modal" class="modal">
+        <div
+            class="bg-white text-brand-text rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-8 relative shadow-2xl animate-[fadeIn_0.3s_ease-out]">
+            <a href="#" class="absolute top-4 right-4 p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors">
+                <span class="iconify" data-icon="lucide:x" data-width="20"></span>
+            </a>
+            <h2 class="text-3xl font-bold mb-6 text-brand">Impressum</h2>
+            <div class="prose prose-brand max-w-none text-brand-gray">
+                <div class="mb-6">
+                    <h3 class="font-bold text-brand-text mb-2">Kontaktadresse</h3>
+                    <p>Marknate<br>
+                        Tanja Jans GmbH<br>
+                        Freudenberg 1<br>
+                        CH-6312 Steinhausen<br>
+                        Schweiz</p>
+                    <p class="mt-2"><strong>E-Mail:</strong> info@marknate.ch</p>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="font-bold text-brand-text mb-2">Handelsregistereintrag</h3>
+                    <p>Eingetragener Firmenname: Tanja Jans GmbH<br>
+                        UID: CHE-XXX.XXX.XXX (Bitte ergänzen)</p>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="font-bold text-brand-text mb-2">Haftungsausschluss</h3>
+                    <p>Der Autor übernimmt keinerlei Gewähr hinsichtlich der inhaltlichen Richtigkeit, Genauigkeit,
+                        Aktualität, Zuverlässigkeit und Vollständigkeit der Informationen. Haftungsansprüche gegen den
+                        Autor wegen Schäden materieller oder immaterieller Art, welche aus dem Zugriff oder der Nutzung
+                        bzw. Nichtnutzung der veröffentlichten Informationen, durch Missbrauch der Verbindung oder durch
+                        technische Störungen entstanden sind, werden ausgeschlossen.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Datenschutz Modal -->
+    <div id="datenschutz-modal" class="modal">
+        <div
+            class="bg-white text-brand-text rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-8 relative shadow-2xl animate-[fadeIn_0.3s_ease-out]">
+            <a href="#" class="absolute top-4 right-4 p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors">
+                <span class="iconify" data-icon="lucide:x" data-width="20"></span>
+            </a>
+            <h2 class="text-3xl font-bold mb-6 text-brand">Datenschutzerklärung</h2>
+            <div class="prose prose-brand max-w-none text-brand-gray text-sm space-y-4">
+                <p><strong>1. Allgemeines</strong><br>
+                    Gestützt auf Artikel 13 der schweizerischen Bundesverfassung und die datenschutzrechtlichen
+                    Bestimmungen des Bundes (Datenschutzgesetz, DSG) hat jede Person Anspruch auf Schutz ihrer
+                    Privatsphäre sowie auf Schutz vor Missbrauch ihrer persönlichen Daten. Wir halten diese Bestimmungen
+                    ein.</p>
+
+                <p><strong>2. Bearbeitung von Personendaten</strong><br>
+                    Personendaten sind alle Angaben, die sich auf eine bestimmte oder bestimmbare Person beziehen. Die
+                    Bearbeitung umfasst jeden Umgang mit Personendaten, insbesondere das Aufbewahren, Bekanntgeben,
+                    Beschaffen, Löschen, Speichern, Verändern, Vernichten und Verwenden.</p>
+
+                <p><strong>3. Datenerfassung auf dieser Website</strong><br>
+                    Die Nutzung dieser Webseite ist in der Regel ohne Angabe personenbezogener Daten möglich. Soweit auf
+                    unseren Seiten personenbezogene Daten (beispielsweise Name, Anschrift oder eMail-Adressen) erhoben
+                    werden, erfolgt dies, soweit möglich, stets auf freiwilliger Basis (z.B. Kontaktformular).</p>
+
+                <p><strong>4. Kontaktformular</strong><br>
+                    Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem
+                    Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage
+                    und für den Fall von Anschlussfragen bei uns gespeichert.</p>
+
+                <p><strong>5. Cookies / Tracking</strong><br>
+                    Diese Website verwendet Cookies. Cookies sind kleine Textdateien, die beim Besuch dieser Website in
+                    Ihrem Computer dauerhaft oder temporär gespeichert werden. Zweck der Cookies ist insbesondere die
+                    Analyse der Nutzung dieser Website zur statistischen Auswertung sowie für kontinuierliche
+                    Verbesserungen.</p>
+
+                <p class="italic text-xs mt-8">Stand: Februar 2026. Änderungen vorbehalten.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- AGB Modal -->
+    <div id="agb-modal" class="modal">
+        <div
+            class="bg-white text-brand-text rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-8 relative shadow-2xl animate-[fadeIn_0.3s_ease-out]">
+            <a href="#" class="absolute top-4 right-4 p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors">
+                <span class="iconify" data-icon="lucide:x" data-width="20"></span>
+            </a>
+            <h2 class="text-3xl font-bold mb-6 text-brand">Allgemeine Geschäftsbedingungen</h2>
+            <div class="prose prose-brand max-w-none text-brand-gray text-sm space-y-4">
+                <p><strong>1. Geltungsbereich</strong><br>
+                    Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für alle Geschäftsbeziehungen zwischen der Tanja
+                    Jans GmbH (nachfolgend Auftragnehmer) und ihren Kunden (nachfolgend Auftraggeber). Abweichende
+                    Bedingungen des Kunden werden nicht anerkannt, es sei denn, der Auftragnehmer stimmt ihrer Geltung
+                    ausdrücklich schriftlich zu.</p>
+
+                <p><strong>2. Leistungsgegenstand</strong><br>
+                    Gegenstand des Vertrages ist die Erbringung von Dienstleistungen in den Bereichen Marketing,
+                    Beratung und Kommunikation wie im jeweiligen Angebot beschrieben.</p>
+
+                <p><strong>3. Vertragsschluss</strong><br>
+                    Ein Vertrag kommt durch die schriftliche Annahme (auch per E-Mail) einer Offerte durch den Kunden
+                    zustande.</p>
+
+                <p><strong>4. Preise und Zahlungsbedingungen</strong><br>
+                    Es gelten die in der Offerte aufgeführten Preise in Schweizer Franken (CHF). Rechnungen sind innert
+                    30 Tagen netto zahlbar, sofern nicht anders vereinbart.</p>
+
+                <p><strong>5. Haftung</strong><br>
+                    Der Auftragnehmer haftet nur für absichtliche oder grobfahrlässige Schäden. Jede weitergehende
+                    Haftung wird ausgeschlossen.</p>
+
+                <p><strong>6. Anwendbares Recht & Gerichtsstand</strong><br>
+                    Es gilt schweizerisches Recht. Gerichtsstand ist am Sitz der Tanja Jans GmbH.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scroll fix for standard links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                // If specific modal logic is needed, add here. 
+                // Currently CSS :target handles modals.
+                // Scroll behavior is handled by html { scroll-behavior: smooth; }
+            });
+        });
+    </script>
+</body>
+
+</html>
