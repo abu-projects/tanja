@@ -2,18 +2,17 @@
  * Marknate Contact Form Handler – Cloudflare Pages Function
  * Endpoint: /api/contact (POST)
  *
- * Sends contact form submissions via MailChannels (free on Cloudflare Workers/Pages).
- * No API key needed — MailChannels allows free sending from Cloudflare Workers.
+ * Sends contact form submissions via Resend API.
+ * Free tier: 100 emails/day — https://resend.com
  *
- * Required: Add a DNS TXT record for SPF so MailChannels can send on your behalf:
- *   Name: @   | Type: TXT | Content: v=spf1 a mx include:relay.mailchannels.net ~all
+ * Required environment variable (set in Cloudflare dashboard):
+ *   RESEND_API_KEY — your Resend API key
  *
- * Optional but recommended: Add a _mailchannels TXT record:
- *   Name: _mailchannels | Type: TXT | Content: v=mc1 cfid=YOUR_PAGES_PROJECT_NAME.pages.dev
+ * Optional environment variable:
+ *   CONTACT_EMAIL — recipient email (defaults to info@marknate.ch)
  */
 
 export async function onRequestPost(context) {
-    // CORS headers
     const corsHeaders = {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
@@ -56,6 +55,20 @@ export async function onRequestPost(context) {
             );
         }
 
+        // Check for API key
+        const apiKey = context.env?.RESEND_API_KEY;
+        if (!apiKey) {
+            console.error('RESEND_API_KEY environment variable is not set');
+            return new Response(
+                JSON.stringify({
+                    success: false,
+                    message: 'E-Mail-Service ist nicht konfiguriert. Bitte schreiben Sie direkt an info@marknate.ch.',
+                }),
+                { status: 500, headers: corsHeaders }
+            );
+        }
+
+        const recipient = context.env?.CONTACT_EMAIL || 'info@marknate.ch';
         const fullName = `${vorname} ${nachname}`;
         const now = new Date();
         const date = now.toLocaleDateString('de-CH', {
@@ -63,46 +76,33 @@ export async function onRequestPost(context) {
             hour: '2-digit', minute: '2-digit',
         });
 
-        // Send via MailChannels API (free for Cloudflare Workers)
-        const mailResponse = await fetch('https://api.mailchannels.net/tx/v1/send', {
+        // Send via Resend API
+        const mailResponse = await fetch('https://api.resend.com/emails', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json',
+            },
             body: JSON.stringify({
-                personalizations: [
-                    {
-                        to: [{ email: 'info@marknate.ch', name: 'Marknate' }],
-                    },
-                ],
-                from: {
-                    email: 'noreply@marknate.ch',
-                    name: 'Marknate Website',
-                },
-                reply_to: {
-                    email: email,
-                    name: fullName,
-                },
+                from: 'Marknate Website <noreply@marknate.ch>',
+                to: [recipient],
+                reply_to: email,
                 subject: `[Marknate Kontaktformular] Neue Anfrage von ${fullName}`,
-                content: [
-                    {
-                        type: 'text/plain',
-                        value: [
-                            'Neue Kontaktanfrage über marknate.ch',
-                            '======================================',
-                            '',
-                            `Name: ${fullName}`,
-                            `E-Mail: ${email}`,
-                            '',
-                            'Nachricht:',
-                            message,
-                            '',
-                            '--------------------------------------',
-                            `Gesendet am: ${date}`,
-                            'Datenschutz akzeptiert: Ja',
-                        ].join('\n'),
-                    },
-                    {
-                        type: 'text/html',
-                        value: `<!DOCTYPE html>
+                text: [
+                    'Neue Kontaktanfrage über marknate.ch',
+                    '======================================',
+                    '',
+                    `Name: ${fullName}`,
+                    `E-Mail: ${email}`,
+                    '',
+                    'Nachricht:',
+                    message,
+                    '',
+                    '--------------------------------------',
+                    `Gesendet am: ${date}`,
+                    'Datenschutz akzeptiert: Ja',
+                ].join('\n'),
+                html: `<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -145,12 +145,10 @@ export async function onRequestPost(context) {
   </div>
 </body>
 </html>`,
-                    },
-                ],
             }),
         });
 
-        if (mailResponse.ok || mailResponse.status === 202) {
+        if (mailResponse.ok) {
             return new Response(
                 JSON.stringify({
                     success: true,
@@ -160,7 +158,7 @@ export async function onRequestPost(context) {
             );
         } else {
             const errText = await mailResponse.text();
-            console.error('MailChannels error:', mailResponse.status, errText);
+            console.error('Resend error:', mailResponse.status, errText);
             return new Response(
                 JSON.stringify({
                     success: false,

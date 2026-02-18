@@ -157,7 +157,7 @@
 
             const formData = new FormData(form);
 
-            fetch('contact.php', {
+            fetch('/api/contact', {
                 method: 'POST',
                 body: formData
             })
