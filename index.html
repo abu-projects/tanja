@@ -8,19 +8,12 @@
     <meta name="description"
         content="Marknate - Ihr Marketing Profi für KMUs und Einzelfirmen. Strategie, Branding, Events und mehr.">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;600;700;800&display=swap"
-        rel="stylesheet">
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    <!-- Libraries (local) -->
+    <script src="assets/js/tailwind.js"></script>
+    <script src="assets/js/iconify.min.js"></script>
 
     <!-- Calendly -->
-    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <link href="assets/css/calendly-widget.css" rel="stylesheet">
 
     <!-- Configuration -->
     <script>
@@ -52,6 +45,73 @@
         }
     </script>
     <style>
+        /* Google Fonts - Inter (local) */
+        @font-face {
+            font-family: 'Inter';
+            src: url('assets/fonts/inter/Inter-300.woff2') format('woff2');
+            font-weight: 300;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url('assets/fonts/inter/Inter-400.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url('assets/fonts/inter/Inter-500.woff2') format('woff2');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url('assets/fonts/inter/Inter-600.woff2') format('woff2');
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* Google Fonts - Montserrat (local) */
+        @font-face {
+            font-family: 'Montserrat';
+            src: url('assets/fonts/montserrat/Montserrat-400.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Montserrat';
+            src: url('assets/fonts/montserrat/Montserrat-600.woff2') format('woff2');
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Montserrat';
+            src: url('assets/fonts/montserrat/Montserrat-700.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Montserrat';
+            src: url('assets/fonts/montserrat/Montserrat-800.woff2') format('woff2');
+            font-weight: 800;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* Decalotype (local) */
         @font-face {
             font-family: 'Decalotype';
             src: url('assets/fonts/Decalotype/WEB/Decalotype-Regular.woff2') format('woff2'),
@@ -1271,7 +1331,7 @@
     </div>
 
     <!-- Calendly widget script -->
-    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    <script type="text/javascript" src="assets/js/calendly-widget.js" async></script>
 
     <script>
         // Smooth scroll fix for standard links
