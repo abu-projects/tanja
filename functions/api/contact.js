@@ -2,14 +2,13 @@
  * Marknate Contact Form Handler – Cloudflare Pages Function
  * Endpoint: /api/contact (POST)
  *
- * Sends contact form submissions via Resend API.
- * Free tier: 100 emails/day — https://resend.com
+ * Delivery strategy:
+ * 1) Resend (if RESEND_API_KEY is configured)
+ * 2) MailChannels fallback (no API key)
  *
- * Required environment variable (set in Cloudflare dashboard):
- *   RESEND_API_KEY — your Resend API key
- *
- * Optional environment variable:
- *   CONTACT_EMAIL — recipient email (defaults to info@marknate.ch)
+ * Optional env vars:
+ * - RESEND_API_KEY
+ * - CONTACT_EMAIL (default: info@marknate.ch)
  */
 
 export async function onRequestPost(context) {
@@ -55,54 +54,33 @@ export async function onRequestPost(context) {
             );
         }
 
-        // Check for API key
-        const apiKey = context.env?.RESEND_API_KEY;
-        if (!apiKey) {
-            console.error('RESEND_API_KEY environment variable is not set');
-            return new Response(
-                JSON.stringify({
-                    success: false,
-                    message: 'E-Mail-Service ist nicht konfiguriert. Bitte schreiben Sie direkt an info@marknate.ch.',
-                }),
-                { status: 500, headers: corsHeaders }
-            );
-        }
-
         const recipient = context.env?.CONTACT_EMAIL || 'info@marknate.ch';
         const fullName = `${vorname} ${nachname}`;
         const now = new Date();
         const date = now.toLocaleDateString('de-CH', {
-            day: '2-digit', month: '2-digit', year: 'numeric',
-            hour: '2-digit', minute: '2-digit',
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
         });
 
-        // Send via Resend API
-        const mailResponse = await fetch('https://api.resend.com/emails', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${apiKey}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                from: 'Marknate Website <noreply@marknate.ch>',
-                to: [recipient],
-                reply_to: email,
-                subject: `[Marknate Kontaktformular] Neue Anfrage von ${fullName}`,
-                text: [
-                    'Neue Kontaktanfrage über marknate.ch',
-                    '======================================',
-                    '',
-                    `Name: ${fullName}`,
-                    `E-Mail: ${email}`,
-                    '',
-                    'Nachricht:',
-                    message,
-                    '',
-                    '--------------------------------------',
-                    `Gesendet am: ${date}`,
-                    'Datenschutz akzeptiert: Ja',
-                ].join('\n'),
-                html: `<!DOCTYPE html>
+        const textBody = [
+            'Neue Kontaktanfrage über marknate.ch',
+            '======================================',
+            '',
+            `Name: ${fullName}`,
+            `E-Mail: ${email}`,
+            '',
+            'Nachricht:',
+            message,
+            '',
+            '--------------------------------------',
+            `Gesendet am: ${date}`,
+            'Datenschutz akzeptiert: Ja',
+        ].join('\n');
+
+        const htmlBody = `<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -144,11 +122,35 @@ export async function onRequestPost(context) {
     </div>
   </div>
 </body>
-</html>`,
-            }),
-        });
+</html>`;
 
-        if (mailResponse.ok) {
+        const resendApiKey = context.env?.RESEND_API_KEY;
+
+        // Try Resend first if configured.
+        let sent = false;
+        if (resendApiKey) {
+            sent = await sendViaResend({
+                apiKey: resendApiKey,
+                recipient,
+                fullName,
+                email,
+                textBody,
+                htmlBody,
+            });
+        }
+
+        // Fallback: MailChannels (works without API key on Cloudflare).
+        if (!sent) {
+            sent = await sendViaMailChannels({
+                recipient,
+                fullName,
+                email,
+                textBody,
+                htmlBody,
+            });
+        }
+
+        if (sent) {
             return new Response(
                 JSON.stringify({
                     success: true,
@@ -156,17 +158,15 @@ export async function onRequestPost(context) {
                 }),
                 { status: 200, headers: corsHeaders }
             );
-        } else {
-            const errText = await mailResponse.text();
-            console.error('Resend error:', mailResponse.status, errText);
-            return new Response(
-                JSON.stringify({
-                    success: false,
-                    message: 'Es gab einen Fehler beim Senden. Bitte versuchen Sie es erneut oder schreiben Sie direkt an info@marknate.ch.',
-                }),
-                { status: 500, headers: corsHeaders }
-            );
         }
+
+        return new Response(
+            JSON.stringify({
+                success: false,
+                message: 'Es gab einen Fehler beim Senden. Bitte versuchen Sie es erneut oder schreiben Sie direkt an info@marknate.ch.',
+            }),
+            { status: 500, headers: corsHeaders }
+        );
     } catch (err) {
         console.error('Contact form error:', err);
         return new Response(
@@ -189,6 +189,81 @@ export async function onRequestOptions() {
             'Access-Control-Allow-Headers': 'Content-Type',
         },
     });
+}
+
+async function sendViaResend({ apiKey, recipient, fullName, email, textBody, htmlBody }) {
+    try {
+        const response = await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${apiKey}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                from: 'Marknate Website <noreply@marknate.ch>',
+                to: [recipient],
+                reply_to: email,
+                subject: `[Marknate Kontaktformular] Neue Anfrage von ${fullName}`,
+                text: textBody,
+                html: htmlBody,
+            }),
+        });
+
+        if (response.ok) return true;
+
+        const errText = await response.text();
+        console.error('Resend error:', response.status, errText);
+        return false;
+    } catch (err) {
+        console.error('Resend request failed:', err);
+        return false;
+    }
+}
+
+async function sendViaMailChannels({ recipient, fullName, email, textBody, htmlBody }) {
+    try {
+        const response = await fetch('https://api.mailchannels.net/tx/v1/send', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                personalizations: [
+                    {
+                        to: [{ email: recipient, name: 'Marknate' }],
+                    },
+                ],
+                from: {
+                    email: 'noreply@marknate.ch',
+                    name: 'Marknate Website',
+                },
+                reply_to: {
+                    email,
+                    name: fullName,
+                },
+                subject: `[Marknate Kontaktformular] Neue Anfrage von ${fullName}`,
+                content: [
+                    {
+                        type: 'text/plain',
+                        value: textBody,
+                    },
+                    {
+                        type: 'text/html',
+                        value: htmlBody,
+                    },
+                ],
+            }),
+        });
+
+        if (response.ok || response.status === 202) return true;
+
+        const errText = await response.text();
+        console.error('MailChannels error:', response.status, errText);
+        return false;
+    } catch (err) {
+        console.error('MailChannels request failed:', err);
+        return false;
+    }
 }
 
 function escapeHtml(str) {
