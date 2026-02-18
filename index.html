@@ -19,6 +19,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
 
+    <!-- Calendly -->
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+
     <!-- Configuration -->
     <script>
         tailwind.config = {
@@ -51,40 +54,40 @@
     <style>
         @font-face {
             font-family: 'Decalotype';
-            src: url('Decalotype/WEB/Decalotype-Regular.woff2') format('woff2'),
-                url('Decalotype/WEB/Decalotype-Regular.woff') format('woff');
+            src: url('assets/fonts/Decalotype/WEB/Decalotype-Regular.woff2') format('woff2'),
+                url('assets/fonts/Decalotype/WEB/Decalotype-Regular.woff') format('woff');
             font-weight: 400;
             font-style: normal;
         }
 
         @font-face {
             font-family: 'Decalotype';
-            src: url('Decalotype/WEB/Decalotype-Medium.woff2') format('woff2'),
-                url('Decalotype/WEB/Decalotype-Medium.woff') format('woff');
+            src: url('assets/fonts/Decalotype/WEB/Decalotype-Medium.woff2') format('woff2'),
+                url('assets/fonts/Decalotype/WEB/Decalotype-Medium.woff') format('woff');
             font-weight: 500;
             font-style: normal;
         }
 
         @font-face {
             font-family: 'Decalotype';
-            src: url('Decalotype/WEB/Decalotype-SemiBold.woff2') format('woff2'),
-                url('Decalotype/WEB/Decalotype-SemiBold.woff') format('woff');
+            src: url('assets/fonts/Decalotype/WEB/Decalotype-SemiBold.woff2') format('woff2'),
+                url('assets/fonts/Decalotype/WEB/Decalotype-SemiBold.woff') format('woff');
             font-weight: 600;
             font-style: normal;
         }
 
         @font-face {
             font-family: 'Decalotype';
-            src: url('Decalotype/WEB/Decalotype-Bold.woff2') format('woff2'),
-                url('Decalotype/WEB/Decalotype-Bold.woff') format('woff');
+            src: url('assets/fonts/Decalotype/WEB/Decalotype-Bold.woff2') format('woff2'),
+                url('assets/fonts/Decalotype/WEB/Decalotype-Bold.woff') format('woff');
             font-weight: 700;
             font-style: normal;
         }
 
         @font-face {
             font-family: 'Decalotype';
-            src: url('Decalotype/WEB/Decalotype-Black.woff2') format('woff2'),
-                url('Decalotype/WEB/Decalotype-Black.woff') format('woff');
+            src: url('assets/fonts/Decalotype/WEB/Decalotype-Black.woff2') format('woff2'),
+                url('assets/fonts/Decalotype/WEB/Decalotype-Black.woff') format('woff');
             font-weight: 900;
             font-style: normal;
         }
@@ -312,7 +315,7 @@
             <!-- Logo -->
             <a href="#" class="flex items-center gap-3 group h-full py-2">
                 <!-- Using img tag for user provided logo -->
-                <img src="logo.png" alt="Marknate Logo" class="h-full w-auto object-contain max-h-16">
+                <img src="assets/imgs/logo.png" alt="Marknate Logo" class="h-full w-auto object-contain max-h-16">
             </a>
 
             <!-- Desktop Menu -->
@@ -439,7 +442,7 @@
 
                 <!-- Hero Photo -->
                 <div class="absolute left-[15%] top-[5%] w-[88%] h-[80%] z-10 hero-fade-in-up">
-                    <img src="hero3.jpg" alt="Tanja Jans – Marknate"
+                    <img src="assets/imgs/hero3.jpg" alt="Tanja Jans – Marknate"
                         class="w-full h-full  rounded-3xl transition-all duration-700">
                 </div>
 
@@ -838,7 +841,8 @@
                     <div class="flex items-center gap-5 mb-8">
                         <div
                             class="relative w-20 h-20 rounded-full overflow-hidden border-2 border-brand shadow-lg shrink-0">
-                            <img src="hero.jpg" alt="Tanja Jans" class="w-full h-full object-cover object-top">
+                            <img src="assets/imgs/hero.jpg" alt="Tanja Jans"
+                                class="w-full h-full object-cover object-top">
                         </div>
                         <div>
                             <p class="font-bold text-brand-text text-lg">Tanja Jans</p>
@@ -903,19 +907,36 @@
                     </div>
                 </div>
 
-                <!-- Right: Calendly Embed -->
+                <!-- Right: Booking Card -->
                 <div class="lg:col-span-3 reveal">
-                    <div class="bg-white rounded-3xl booking-glow border border-gray-100/80 overflow-hidden">
-                        <!-- Calendly inline widget -->
-                        <div class="calendly-container">
-                            <div class="calendly-inline-widget" data-url="https://calendly.com/marknate"
-                                style="min-width:280px;height:660px;"></div>
+                    <div
+                        class="bg-white rounded-3xl booking-glow border border-gray-100/80 overflow-hidden p-10 md:p-14 flex flex-col items-center text-center">
+                        <!-- Calendar icon -->
+                        <div
+                            class="w-20 h-20 rounded-2xl bg-brand-light/50 flex items-center justify-center text-brand mb-8">
+                            <span class="iconify" data-icon="lucide:calendar-check" data-width="40"></span>
                         </div>
-                    </div>
-                    <!-- Microcopy -->
-                    <div class="flex items-center justify-center gap-2 mt-6 text-sm text-brand-gray/50">
-                        <span class="iconify" data-icon="lucide:mail-check" data-width="16"></span>
-                        <p>Sie erhalten direkt eine Bestätigung per E-Mail.</p>
+
+                        <h3 class="text-2xl font-bold text-brand-text mb-3">30-Minuten Strategiegespräch</h3>
+                        <p class="text-brand-gray/60 mb-8 max-w-md">
+                            Wählen Sie Ihren Wunschtermin – Sie erhalten direkt eine Bestätigung per E-Mail.
+                        </p>
+
+                        <!-- Calendly Popup Button -->
+                        <a href=""
+                            onclick="Calendly.initPopupWidget({url: 'https://calendly.com/janstanja1/30min'});return false;"
+                            class="w-full max-w-sm py-5 bg-brand text-white font-bold rounded-xl hover:bg-brand-dark transition-all shadow-lg hover:shadow-brand/30 flex items-center justify-center gap-3 group text-lg">
+                            <span class="iconify" data-icon="lucide:calendar-check" data-width="22"></span>
+                            Termin auswählen
+                            <span class="iconify group-hover:translate-x-1 transition-transform"
+                                data-icon="lucide:arrow-right" data-width="20"></span>
+                        </a>
+
+                        <!-- Microcopy -->
+                        <div class="flex items-center justify-center gap-2 mt-6 text-sm text-brand-gray/50">
+                            <span class="iconify" data-icon="lucide:mail-check" data-width="16"></span>
+                            <p>Sie erhalten direkt eine Bestätigung per E-Mail.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -989,7 +1010,7 @@
                             <!-- Placeholder for Tanja Jans portrait -->
                             <div
                                 class="w-full h-full bg-gray-200 flex items-center justify-center text-xs text-center text-gray-500">
-                                <img src="hero.jpg" class="w-full h-full object-cover object-top">
+                                <img src="assets/imgs/hero.jpg" class="w-full h-full object-cover object-top">
                             </div>
                             <!-- <img src="user-portrait.jpg" class="w-full h-full object-cover"> -->
                         </div>
@@ -1082,7 +1103,7 @@
         <div class="container max-w-7xl mx-auto px-6 relative z-10">
             <div class="grid md:grid-cols-4 gap-12 mb-16">
                 <div class="col-span-1 md:col-span-2 space-y-6">
-                    <img src="logo.png" alt="Marknate Logo" class="h-10 w-auto opacity-90">
+                    <img src="assets/imgs/logo.png" alt="Marknate Logo" class="h-10 w-auto opacity-90">
                     <p class="text-brand-gray max-w-sm leading-relaxed">
                         Marknate begleitet Schweizer KMUs und Einzelfirmen auf dem Weg zu einer starken Marke und
                         sichtbarem Erfolg. Klar, Inspirierend, Wirksam.
