@@ -257,6 +257,50 @@
             stroke-dashoffset: 200;
             animation: drawLine 2s ease-out 0.8s forwards;
         }
+
+        /* Booking section */
+        .booking-glow {
+            box-shadow: 0 0 60px rgba(18, 157, 99, 0.08), 0 25px 50px -12px rgba(0, 0, 0, 0.06);
+        }
+
+        .booking-check {
+            animation: fadeInUp 0.5s ease-out backwards;
+        }
+
+        .booking-check:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .booking-check:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .booking-check:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        /* Calendly container */
+        .calendly-container {
+            min-height: 660px;
+            border-radius: 1.5rem;
+            overflow: hidden;
+        }
+
+        .calendly-container iframe {
+            border-radius: 1.5rem;
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 
@@ -275,23 +319,33 @@
             <div class="hidden md:flex items-center gap-8">
                 <a href="#philosophie"
                     class="text-sm font-semibold uppercase tracking-wide text-brand-text hover:text-brand transition-colors">Über
-                    mich</a>
+                    MARKNATE</a>
                 <a href="#schwerpunkte"
                     class="text-sm font-semibold uppercase tracking-wide text-brand-text hover:text-brand transition-colors">Angebot</a>
                 <a href="#preise"
                     class="text-sm font-semibold uppercase tracking-wide text-brand-text hover:text-brand transition-colors">Preise</a>
                 <a href="#kontakt"
-                    class="px-6 py-2.5 bg-brand text-white text-sm font-semibold rounded-full hover:bg-brand-dark transition-all shadow-lg hover:shadow-brand/30">
-                    Kontakt
+                    class="text-sm font-semibold uppercase tracking-wide text-brand-text hover:text-brand transition-colors">Kontakt</a>
+                <a href="#buchen"
+                    class="px-6 py-2.5 bg-brand text-white text-sm font-semibold rounded-full hover:bg-brand-dark transition-all shadow-lg hover:shadow-brand/30 flex items-center gap-2">
+                    <span class="iconify" data-icon="lucide:calendar-check" data-width="16"></span>
+                    Strategiegespräch buchen
                 </a>
             </div>
 
             <!-- Mobile Menu Button -->
-            <button class="md:hidden p-2 text-brand-text"
-                onclick="const m = document.getElementById('mobile-menu'); m.classList.toggle('hidden');">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                    class="w-6 h-6">
+            <button id="menu-toggle" class="md:hidden p-2 text-brand-text"
+                onclick="const m = document.getElementById('mobile-menu'); const isHidden = m.classList.toggle('hidden'); document.getElementById('icon-burger').classList.toggle('hidden', !isHidden); document.getElementById('icon-close').classList.toggle('hidden', isHidden);">
+                <!-- Burger Icon -->
+                <svg id="icon-burger" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                    </path>
+                </svg>
+                <!-- Close Icon -->
+                <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" class="w-6 h-6 hidden">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
                     </path>
                 </svg>
             </button>
@@ -299,16 +353,28 @@
 
         <!-- Mobile Menu -->
         <div id="mobile-menu"
-            class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full left-0 top-20 shadow-xl">
-            <div class="flex flex-col p-6 gap-4">
-                <a href="#philosophie" class="text-lg font-medium text-brand-text block p-2 hover:bg-gray-50 rounded"
-                    onclick="document.getElementById('mobile-menu').classList.add('hidden')">Über mich</a>
-                <a href="#schwerpunkte" class="text-lg font-medium text-brand-text block p-2 hover:bg-gray-50 rounded"
-                    onclick="document.getElementById('mobile-menu').classList.add('hidden')">Angebot</a>
-                <a href="#preise" class="text-lg font-medium text-brand-text block p-2 hover:bg-gray-50 rounded"
-                    onclick="document.getElementById('mobile-menu').classList.add('hidden')">Preise</a>
-                <a href="#kontakt" class="text-lg font-medium text-brand block p-2 hover:bg-gray-50 rounded"
-                    onclick="document.getElementById('mobile-menu').classList.add('hidden')">Kontakt</a>
+            class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full left-0 top-20 shadow-xl"
+            style="min-height: calc(100vh - 5rem);">
+            <div class="flex flex-col p-6">
+                <a href="#philosophie"
+                    class="text-lg font-medium text-brand-text block py-4 px-2 border-b border-gray-100 hover:bg-gray-50"
+                    onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('icon-burger').classList.remove('hidden'); document.getElementById('icon-close').classList.add('hidden');">Über
+                    mich</a>
+                <a href="#schwerpunkte"
+                    class="text-lg font-medium text-brand-text block py-4 px-2 border-b border-gray-100 hover:bg-gray-50"
+                    onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('icon-burger').classList.remove('hidden'); document.getElementById('icon-close').classList.add('hidden');">Angebot</a>
+                <a href="#preise"
+                    class="text-lg font-medium text-brand-text block py-4 px-2 border-b border-gray-100 hover:bg-gray-50"
+                    onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('icon-burger').classList.remove('hidden'); document.getElementById('icon-close').classList.add('hidden');">Preise</a>
+                <a href="#kontakt"
+                    class="text-lg font-medium text-brand-text block py-4 px-2 border-b border-gray-100 hover:bg-gray-50"
+                    onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('icon-burger').classList.remove('hidden'); document.getElementById('icon-close').classList.add('hidden');">Kontakt</a>
+                <a href="#buchen"
+                    class="text-lg font-bold text-white bg-brand block p-3 rounded-xl text-center mt-6 shadow-md"
+                    onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('icon-burger').classList.remove('hidden'); document.getElementById('icon-close').classList.add('hidden');">
+                    <span class="iconify inline-block mr-1" data-icon="lucide:calendar-check" data-width="18"></span>
+                    Strategiegespräch buchen
+                </a>
             </div>
         </div>
     </nav>
@@ -340,9 +406,10 @@
                     Durch meine Marketing Expertise hole ich das Beste aus Ihrem Unternehmen heraus.
                 </p>
                 <div class="flex flex-wrap gap-4 pt-4">
-                    <a href="#kontakt"
+                    <a href="#buchen"
                         class="px-8 py-4 bg-brand text-white font-bold rounded-xl hover:bg-brand-dark transition-all transform hover:-translate-y-1 shadow-lg shadow-brand/20 flex items-center gap-2 group">
-                        Kostenlose Offerte verlangen
+                        <span class="iconify" data-icon="lucide:calendar-check"></span>
+                        Strategiegespräch vereinbaren
                         <span class="iconify group-hover:translate-x-1 transition-transform"
                             data-icon="lucide:arrow-right"></span>
                     </a>
@@ -372,7 +439,8 @@
 
                 <!-- Hero Photo -->
                 <div class="absolute left-[15%] top-[5%] w-[88%] h-[80%] z-10 hero-fade-in-up">
-                    <img src="hero.svg" alt="Tanja Jans – Marknate" class="w-full h-full  transition-all duration-700">
+                    <img src="hero3.jpg" alt="Tanja Jans – Marknate"
+                        class="w-full h-full  rounded-3xl transition-all duration-700">
                 </div>
 
                 <!-- Floating Icon Card: Building (top-left) -->
@@ -521,9 +589,9 @@
                             Als Ihr externer Marketing Partner biete ich maßgeschneiderte Lösungen, die genau dort
                             ansetzen, wo Sie Unterstützung brauchen.
                         </p>
-                        <a href="#kontakt"
+                        <a href="#buchen"
                             class="inline-flex items-center gap-2 text-brand font-bold hover:text-brand-dark transition-colors border-b-2 border-brand pb-1">
-                            Jetzt anfragen <span class="iconify" data-icon="lucide:arrow-right"></span>
+                            Beratungsgespräch buchen <span class="iconify" data-icon="lucide:arrow-right"></span>
                         </a>
                     </div>
                 </div>
@@ -664,9 +732,10 @@
                             <span class="text-brand-text">Relaunch & Marktanalysen</span>
                         </li>
                     </ul>
-                    <a href="#kontakt"
-                        class="block w-full py-4 text-center border-2 border-brand text-brand font-bold rounded-xl hover:bg-brand hover:text-white transition-all text-sm uppercase tracking-wider">
-                        Offerte anfragen
+                    <a href="#buchen"
+                        class="block w-full py-4 text-center border-2 border-brand text-brand font-bold rounded-xl hover:bg-brand hover:text-white transition-all text-sm uppercase tracking-wider flex items-center justify-center gap-2">
+                        <span class="iconify" data-icon="lucide:calendar-check" data-width="16"></span>
+                        Termin buchen
                     </a>
                 </div>
 
@@ -725,28 +794,152 @@
                             <span class="text-brand-text">Website Beratung</span>
                         </li>
                     </ul>
-                    <a href="#kontakt"
-                        class="block w-full py-4 text-center bg-brand text-white font-bold rounded-xl hover:bg-brand-dark transition-all text-sm uppercase tracking-wider relative z-10 shadow-md">
-                        Termin vereinbaren
+                    <a href="#buchen"
+                        class="block w-full py-4 text-center bg-brand text-white font-bold rounded-xl hover:bg-brand-dark transition-all text-sm uppercase tracking-wider relative z-10 shadow-md flex items-center justify-center gap-2">
+                        <span class="iconify" data-icon="lucide:calendar-check" data-width="16"></span>
+                        Jetzt Gespräch planen
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Booking Section -->
+    <section id="buchen" class="py-32 bg-white relative overflow-hidden">
+        <!-- Subtle background decoration -->
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand/20 to-transparent">
+        </div>
+        <div
+            class="absolute -top-[300px] -right-[200px] w-[600px] h-[600px] bg-brand/3 rounded-full blur-[120px] pointer-events-none">
+        </div>
+        <div
+            class="absolute -bottom-[200px] -left-[200px] w-[500px] h-[500px] bg-brand-light/30 rounded-full blur-[100px] pointer-events-none">
+        </div>
+
+        <div class="container max-w-7xl mx-auto px-6 relative z-10">
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-light/40 border border-brand/10 rounded-full mb-6">
+                    <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+                    <span class="text-xs font-bold text-brand uppercase tracking-widest">Kostenlos &
+                        unverbindlich</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold text-brand-text mb-6">Bereit für den nächsten Schritt?</h2>
+                <p class="text-xl text-brand-gray/70 leading-relaxed">
+                    Buchen Sie ein unverbindliches 30-Minuten Strategiegespräch.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-5 gap-12 lg:gap-16 items-start">
+                <!-- Left: Benefits -->
+                <div class="lg:col-span-2 space-y-8 reveal">
+                    <!-- Portrait + Intro -->
+                    <div class="flex items-center gap-5 mb-8">
+                        <div
+                            class="relative w-20 h-20 rounded-full overflow-hidden border-2 border-brand shadow-lg shrink-0">
+                            <img src="hero.jpg" alt="Tanja Jans" class="w-full h-full object-cover object-top">
+                        </div>
+                        <div>
+                            <p class="font-bold text-brand-text text-lg">Tanja Jans</p>
+                            <p class="text-sm text-brand-gray/60">Marketing Strategin</p>
+                        </div>
+                    </div>
+
+                    <p class="text-brand-gray/70 leading-relaxed text-lg">
+                        In einem persönlichen Gespräch analysieren wir gemeinsam Ihre aktuelle Situation und entwickeln
+                        erste konkrete Schritte für Ihren Erfolg.
+                    </p>
+
+                    <!-- Benefits -->
+                    <div class="space-y-5 pt-4">
+                        <div class="booking-check flex items-start gap-4">
+                            <div
+                                class="mt-0.5 w-8 h-8 rounded-xl bg-brand-light/50 flex items-center justify-center text-brand shrink-0">
+                                <span class="iconify" data-icon="lucide:target" data-width="18"></span>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-brand-text">Klare Einschätzung Ihrer aktuellen Situation
+                                </p>
+                                <p class="text-sm text-brand-gray/60 mt-1">Wir verschaffen Ihnen einen objektiven
+                                    Überblick.</p>
+                            </div>
+                        </div>
+                        <div class="booking-check flex items-start gap-4">
+                            <div
+                                class="mt-0.5 w-8 h-8 rounded-xl bg-brand-light/50 flex items-center justify-center text-brand shrink-0">
+                                <span class="iconify" data-icon="lucide:route" data-width="18"></span>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-brand-text">Konkrete nächste Handlungsschritte</p>
+                                <p class="text-sm text-brand-gray/60 mt-1">Sie gehen mit einem klaren Plan aus dem
+                                    Gespräch.</p>
+                            </div>
+                        </div>
+                        <div class="booking-check flex items-start gap-4">
+                            <div
+                                class="mt-0.5 w-8 h-8 rounded-xl bg-brand-light/50 flex items-center justify-center text-brand shrink-0">
+                                <span class="iconify" data-icon="lucide:sparkles" data-width="18"></span>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-brand-text">Persönliche strategische Beratung</p>
+                                <p class="text-sm text-brand-gray/60 mt-1">Individuelle Lösungen statt generischer
+                                    Empfehlungen.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Trust note -->
+                    <div class="pt-6 border-t border-gray-100">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-brand/10 flex items-center justify-center text-brand">
+                                <span class="iconify" data-icon="lucide:shield-check" data-width="20"></span>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-brand-text">100% kostenlos & unverbindlich</p>
+                                <p class="text-xs text-brand-gray/50">Kein Risiko. Kein Kleingedrucktes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Calendly Embed -->
+                <div class="lg:col-span-3 reveal">
+                    <div class="bg-white rounded-3xl booking-glow border border-gray-100/80 overflow-hidden">
+                        <!-- Calendly inline widget -->
+                        <div class="calendly-container">
+                            <div class="calendly-inline-widget" data-url="https://calendly.com/marknate"
+                                style="min-width:280px;height:660px;"></div>
+                        </div>
+                    </div>
+                    <!-- Microcopy -->
+                    <div class="flex items-center justify-center gap-2 mt-6 text-sm text-brand-gray/50">
+                        <span class="iconify" data-icon="lucide:mail-check" data-width="16"></span>
+                        <p>Sie erhalten direkt eine Bestätigung per E-Mail.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Kontakt Section -->
-    <section id="kontakt" class="py-32 bg-white relative">
+    <section id="kontakt" class="py-24 bg-gray-50/50 relative border-t border-gray-100">
         <div class="container max-w-7xl mx-auto px-6">
             <div class="grid lg:grid-cols-2 gap-16 items-start">
                 <!-- Info -->
                 <div class="space-y-10 lg:sticky lg:top-32">
                     <div>
-                        <h2 class="text-4xl md:text-5xl font-bold text-brand-text mb-6">KONTAKT</h2>
-                        <div class="h-1 w-20 bg-brand mb-6"></div>
-                        <p class="text-xl text-brand-gray leading-relaxed">
-                            Bereit für den nächsten Schritt? Ich freue mich darauf, mit Ihnen zusammenzuarbeiten und Ihr
-                            Unternehmen voranzubringen.
+                        <h2 class="text-3xl md:text-4xl font-bold text-brand-text mb-4">KONTAKT</h2>
+                        <div class="h-1 w-16 bg-brand/40 mb-4"></div>
+                        <p class="text-lg text-brand-gray/70 leading-relaxed">
+                            Lieber per E-Mail oder Telefon? Kein Problem – ich freue mich auf Ihre Nachricht.
                         </p>
+                        <a href="#buchen"
+                            class="inline-flex items-center gap-2 mt-4 text-brand font-semibold text-sm hover:text-brand-dark transition-colors">
+                            <span class="iconify" data-icon="lucide:calendar-check" data-width="16"></span>
+                            Oder direkt ein Strategiegespräch buchen
+                            <span class="iconify" data-icon="lucide:arrow-up" data-width="14"></span>
+                        </a>
                     </div>
 
                     <div class="space-y-8">
@@ -809,7 +1002,7 @@
                                 </a>
 
                             </div>
-                            <p class="text-sm text-brand-gray italic">„Auf Linkedin findest du alles über meinen
+                            <p class="text-sm text-brand-gray italic">„Auf Linkedin finden Sie alles über meinen
                                 Background“</p>
                         </div>
                     </div>
@@ -818,7 +1011,7 @@
                 <!-- Form -->
                 <div
                     class="bg-white p-8 md:p-12 rounded-[2rem] shadow-2xl shadow-brand-light/50 border border-gray-100">
-                    <h3 class="text-2xl font-bold text-brand-text mb-8">Schreiben Sie mir</h3>
+                    <h3 class="text-xl font-bold text-brand-text mb-6">Schreiben Sie mir</h3>
                     <form action="#" class="space-y-6">
                         <div class="grid md:grid-cols-2 gap-6">
                             <div class="relative group">
@@ -1056,6 +1249,9 @@
         </div>
     </div>
 
+    <!-- Calendly widget script -->
+    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
     <script>
         // Smooth scroll fix for standard links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1065,6 +1261,17 @@
                 // Scroll behavior is handled by html { scroll-behavior: smooth; }
             });
         });
+
+        // Scroll reveal animation
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
     </script>
 </body>
 
