@@ -90,13 +90,14 @@
         // Show status message
         function showStatus(type, message) {
             statusEl.className = 'form-status mt-4 p-4 rounded-xl text-sm font-medium flex items-center gap-2';
+            const safeMessage = escapeHtml(message);
 
             if (type === 'success') {
                 statusEl.classList.add('bg-brand-light/50', 'text-brand-dark', 'border', 'border-brand/20');
-                statusEl.innerHTML = '<span class="iconify shrink-0" data-icon="lucide:check-circle" data-width="20"></span>' + message;
+                statusEl.innerHTML = '<span class="iconify shrink-0" data-icon="lucide:check-circle" data-width="20"></span>' + safeMessage;
             } else if (type === 'error') {
                 statusEl.classList.add('bg-red-50', 'text-red-700', 'border', 'border-red-200');
-                statusEl.innerHTML = '<span class="iconify shrink-0" data-icon="lucide:alert-circle" data-width="20"></span>' + message;
+                statusEl.innerHTML = '<span class="iconify shrink-0" data-icon="lucide:alert-circle" data-width="20"></span>' + safeMessage;
             }
 
             statusEl.classList.remove('hidden');
@@ -178,7 +179,11 @@
                         }, 5000);
                     } else {
                         setButtonState('default');
-                        showStatus('error', result.data.message || 'Es gab einen Fehler. Bitte versuchen Sie es erneut.');
+                        var errorMessage = result.data.message || 'Es gab einen Fehler. Bitte versuchen Sie es erneut.';
+                        if (result.data && result.data.details) {
+                            errorMessage += ' (' + result.data.details + ')';
+                        }
+                        showStatus('error', errorMessage);
                     }
                 })
                 .catch(function () {
@@ -187,4 +192,13 @@
                 });
         });
     });
+
+    function escapeHtml(text) {
+        return String(text)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
 })();

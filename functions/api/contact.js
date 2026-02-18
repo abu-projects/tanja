@@ -3,12 +3,15 @@
  * Endpoint: /api/contact (POST)
  *
  * Delivery strategy:
- * 1) Resend (if RESEND_API_KEY is configured)
- * 2) MailChannels fallback (no API key)
+ * 1) Resend (recommended)
+ * 2) MailChannels fallback
  *
  * Optional env vars:
- * - RESEND_API_KEY
  * - CONTACT_EMAIL (default: info@marknate.ch)
+ * - RESEND_API_KEY
+ * - RESEND_FROM (default: Marknate Website <onboarding@resend.dev>)
+ * - MAILCHANNELS_API_KEY
+ * - MAIL_FROM (default: noreply@marknate.ch)
  */
 
 export async function onRequestPost(context) {
@@ -29,7 +32,6 @@ export async function onRequestPost(context) {
         const privacy = (formData.get('privacy') || '').trim();
         const honeypot = (formData.get('website') || '').trim();
 
-        // Honeypot spam check – pretend success for bots
         if (honeypot) {
             return new Response(
                 JSON.stringify({ success: true, message: 'Nachricht erfolgreich gesendet.' }),
@@ -37,7 +39,6 @@ export async function onRequestPost(context) {
             );
         }
 
-        // Validation
         const errors = [];
         if (!vorname) errors.push('Bitte geben Sie Ihren Vornamen ein.');
         if (!nachname) errors.push('Bitte geben Sie Ihren Nachnamen ein.');
@@ -124,46 +125,40 @@ export async function onRequestPost(context) {
 </body>
 </html>`;
 
-        const resendApiKey = context.env?.RESEND_API_KEY;
-
-        // Try Resend first if configured.
-        let sent = false;
-        if (resendApiKey) {
-            sent = await sendViaResend({
-                apiKey: resendApiKey,
-                recipient,
-                fullName,
-                email,
-                textBody,
-                htmlBody,
-            });
+        const resendResult = await sendViaResend({
+            apiKey: context.env?.RESEND_API_KEY,
+            from: context.env?.RESEND_FROM || 'Marknate Website <onboarding@resend.dev>',
+            recipient,
+            fullName,
+            email,
+            textBody,
+            htmlBody,
+        });
+        if (resendResult.ok) {
+            return successResponse(corsHeaders);
         }
 
-        // Fallback: MailChannels (works without API key on Cloudflare).
-        if (!sent) {
-            sent = await sendViaMailChannels({
-                recipient,
-                fullName,
-                email,
-                textBody,
-                htmlBody,
-            });
+        const mailChannelsResult = await sendViaMailChannels({
+            apiKey: context.env?.MAILCHANNELS_API_KEY,
+            fromEmail: context.env?.MAIL_FROM || 'noreply@marknate.ch',
+            recipient,
+            fullName,
+            email,
+            textBody,
+            htmlBody,
+        });
+        if (mailChannelsResult.ok) {
+            return successResponse(corsHeaders);
         }
 
-        if (sent) {
-            return new Response(
-                JSON.stringify({
-                    success: true,
-                    message: 'Vielen Dank! Ihre Nachricht wurde erfolgreich gesendet. Ich melde mich in Kürze bei Ihnen.',
-                }),
-                { status: 200, headers: corsHeaders }
-            );
-        }
+        const debugDetails = [resendResult.reason, mailChannelsResult.reason].filter(Boolean).join(' | ');
+        console.error('Contact delivery failed:', debugDetails || 'unknown error');
 
         return new Response(
             JSON.stringify({
                 success: false,
-                message: 'Es gab einen Fehler beim Senden. Bitte versuchen Sie es erneut oder schreiben Sie direkt an info@marknate.ch.',
+                message: 'E-Mail-Versand ist nicht korrekt eingerichtet. Bitte senden Sie direkt an info@marknate.ch.',
+                details: debugDetails,
             }),
             { status: 500, headers: corsHeaders }
         );
@@ -179,7 +174,6 @@ export async function onRequestPost(context) {
     }
 }
 
-// Handle CORS preflight
 export async function onRequestOptions() {
     return new Response(null, {
         status: 204,
@@ -191,7 +185,21 @@ export async function onRequestOptions() {
     });
 }
 
-async function sendViaResend({ apiKey, recipient, fullName, email, textBody, htmlBody }) {
+function successResponse(corsHeaders) {
+    return new Response(
+        JSON.stringify({
+            success: true,
+            message: 'Vielen Dank! Ihre Nachricht wurde erfolgreich gesendet. Ich melde mich in Kürze bei Ihnen.',
+        }),
+        { status: 200, headers: corsHeaders }
+    );
+}
+
+async function sendViaResend({ apiKey, from, recipient, fullName, email, textBody, htmlBody }) {
+    if (!apiKey) {
+        return { ok: false, reason: 'RESEND_API_KEY fehlt' };
+    }
+
     try {
         const response = await fetch('https://api.resend.com/emails', {
             method: 'POST',
@@ -200,7 +208,7 @@ async function sendViaResend({ apiKey, recipient, fullName, email, textBody, htm
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                from: 'Marknate Website <noreply@marknate.ch>',
+                from,
                 to: [recipient],
                 reply_to: email,
                 subject: `[Marknate Kontaktformular] Neue Anfrage von ${fullName}`,
@@ -209,24 +217,29 @@ async function sendViaResend({ apiKey, recipient, fullName, email, textBody, htm
             }),
         });
 
-        if (response.ok) return true;
+        if (response.ok) {
+            return { ok: true };
+        }
 
         const errText = await response.text();
-        console.error('Resend error:', response.status, errText);
-        return false;
+        return { ok: false, reason: `Resend ${response.status}: ${sanitizeErrorText(errText)}` };
     } catch (err) {
-        console.error('Resend request failed:', err);
-        return false;
+        return { ok: false, reason: `Resend request failed: ${String(err)}` };
     }
 }
 
-async function sendViaMailChannels({ recipient, fullName, email, textBody, htmlBody }) {
+async function sendViaMailChannels({ apiKey, fromEmail, recipient, fullName, email, textBody, htmlBody }) {
     try {
+        const headers = {
+            'Content-Type': 'application/json',
+        };
+        if (apiKey) {
+            headers.Authorization = `Bearer ${apiKey}`;
+        }
+
         const response = await fetch('https://api.mailchannels.net/tx/v1/send', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers,
             body: JSON.stringify({
                 personalizations: [
                     {
@@ -234,7 +247,7 @@ async function sendViaMailChannels({ recipient, fullName, email, textBody, htmlB
                     },
                 ],
                 from: {
-                    email: 'noreply@marknate.ch',
+                    email: fromEmail,
                     name: 'Marknate Website',
                 },
                 reply_to: {
@@ -255,15 +268,19 @@ async function sendViaMailChannels({ recipient, fullName, email, textBody, htmlB
             }),
         });
 
-        if (response.ok || response.status === 202) return true;
+        if (response.ok || response.status === 202) {
+            return { ok: true };
+        }
 
         const errText = await response.text();
-        console.error('MailChannels error:', response.status, errText);
-        return false;
+        return { ok: false, reason: `MailChannels ${response.status}: ${sanitizeErrorText(errText)}` };
     } catch (err) {
-        console.error('MailChannels request failed:', err);
-        return false;
+        return { ok: false, reason: `MailChannels request failed: ${String(err)}` };
     }
+}
+
+function sanitizeErrorText(text) {
+    return String(text || '').replace(/\s+/g, ' ').trim().slice(0, 220);
 }
 
 function escapeHtml(str) {
