@@ -1,7 +1,13 @@
 name = "marknate"
 main = "src/worker.js"
-compatibility_date = "2026-02-18"
+compatibility_date = "2026-02-19"
 
 [assets]
-directory = "./dist"
 binding = "ASSETS"
+directory = "./dist"
+
+[vars]
+CONTACT_EMAIL = "info@marknate.ch"
+MAIL_FROM = "noreply@marknate.ch"
+# RECAPTCHA_SECRET must be stored as a Wrangler secret:
+# wrangler secret put RECAPTCHA_SECRET

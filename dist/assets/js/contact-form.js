@@ -8,12 +8,22 @@
     document.addEventListener('DOMContentLoaded', function () {
         const form = document.getElementById('contact-form');
         if (!form) return;
+        const recaptchaSiteKey = (form.getAttribute('data-recaptcha-site-key') || '').trim();
+        const recaptchaAktiv =
+            recaptchaSiteKey &&
+            recaptchaSiteKey !== 'DEIN_RECAPTCHA_SITE_KEY' &&
+            recaptchaSiteKey !== 'IHRE_RECAPTCHA_SITE_KEY';
+        let recaptchaBereit = false;
 
         const submitBtn = form.querySelector('button[type="submit"]');
         const statusEl = document.getElementById('form-status');
         const btnText = submitBtn.querySelector('.btn-text');
         const btnLoader = submitBtn.querySelector('.btn-loader');
         const btnSuccess = submitBtn.querySelector('.btn-success');
+
+        if (recaptchaAktiv) {
+            ladeRecaptcha(recaptchaSiteKey);
+        }
 
         // Validate email format
         function isValidEmail(email) {
@@ -128,7 +138,7 @@
         }
 
         // Handle form submit
-        form.addEventListener('submit', function (e) {
+        form.addEventListener('submit', async function (e) {
             e.preventDefault();
 
             // Clear previous status
@@ -157,40 +167,71 @@
             setButtonState('loading');
 
             const formData = new FormData(form);
+            try {
+                const recaptchaToken = await holeRecaptchaToken();
+                if (recaptchaToken) {
+                    formData.set('recaptchaToken', recaptchaToken);
+                }
 
-            fetch('/api/contact', {
-                method: 'POST',
-                body: formData
-            })
-                .then(function (response) {
-                    return response.json().then(function (data) {
-                        return { ok: response.ok, data: data };
-                    });
-                })
-                .then(function (result) {
-                    if (result.ok && result.data.success) {
-                        setButtonState('success');
-                        showStatus('success', result.data.message);
-                        form.reset();
-
-                        // Reset button after 5 seconds
-                        setTimeout(function () {
-                            setButtonState('default');
-                        }, 5000);
-                    } else {
-                        setButtonState('default');
-                        var errorMessage = result.data.message || 'Es gab einen Fehler. Bitte versuchen Sie es erneut.';
-                        if (result.data && result.data.details) {
-                            errorMessage += ' (' + result.data.details + ')';
-                        }
-                        showStatus('error', errorMessage);
-                    }
-                })
-                .catch(function () {
-                    setButtonState('default');
-                    showStatus('error', 'Verbindungsfehler. Bitte versuchen Sie es erneut oder schreiben Sie an info@marknate.ch.');
+                const response = await fetch('/submit', {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                    },
+                    body: formData
                 });
+
+                const data = await response.json().catch(function () { return {}; });
+                const result = { ok: response.ok, data: data };
+
+                if (result.ok && result.data.success) {
+                    setButtonState('success');
+                    showStatus('success', result.data.message);
+                    form.reset();
+
+                    // Reset button after 5 seconds
+                    setTimeout(function () {
+                        setButtonState('default');
+                    }, 5000);
+                } else {
+                    setButtonState('default');
+                    var errorMessage = result.data.message || 'Es gab einen Fehler. Bitte versuchen Sie es erneut.';
+                    if (result.data && result.data.details) {
+                        errorMessage += ' (' + result.data.details + ')';
+                    }
+                    showStatus('error', errorMessage);
+                }
+            } catch (_) {
+                setButtonState('default');
+                showStatus('error', 'Verbindungsfehler. Bitte versuchen Sie es erneut oder schreiben Sie an info@marknate.ch.');
+            }
         });
+
+        function ladeRecaptcha(siteKey) {
+            const script = document.createElement('script');
+            script.src = 'https://www.google.com/recaptcha/api.js?render=' + encodeURIComponent(siteKey);
+            script.async = true;
+            script.defer = true;
+            script.onload = function () {
+                if (window.grecaptcha && typeof window.grecaptcha.ready === 'function') {
+                    window.grecaptcha.ready(function () {
+                        recaptchaBereit = true;
+                    });
+                }
+            };
+            script.onerror = function () {
+                recaptchaBereit = false;
+            };
+            document.head.appendChild(script);
+        }
+
+        async function holeRecaptchaToken() {
+            if (!recaptchaAktiv) return '';
+            if (!recaptchaBereit || !window.grecaptcha) {
+                throw new Error('reCAPTCHA nicht bereit');
+            }
+            return window.grecaptcha.execute(recaptchaSiteKey, { action: 'kontaktformular' });
+        }
     });
 
     function escapeHtml(text) {

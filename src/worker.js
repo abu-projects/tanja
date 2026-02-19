@@ -12,8 +12,10 @@ function methodNotAllowed() {
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
+    const isContactRoute =
+      url.pathname === "/submit" || url.pathname === "/api/contact";
 
-    if (url.pathname === "/api/contact") {
+    if (isContactRoute) {
       const context = {
         request,
         env,

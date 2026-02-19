@@ -1,6 +1,6 @@
 /**
  * Marknate Contact Form Handler – Cloudflare Worker
- * Endpoint: /api/contact (POST)
+ * Endpunkt: /submit (POST)
  *
  * Mail provider: MailChannels API
  * Required env vars:
@@ -15,7 +15,7 @@ export async function onRequestPost(context) {
     const corsHeaders = {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Headers': 'Content-Type, Accept',
         'Content-Type': 'application/json; charset=utf-8',
     };
 
@@ -28,6 +28,7 @@ export async function onRequestPost(context) {
         const message = (formData.get('message') || '').trim();
         const privacy = (formData.get('privacy') || '').trim();
         const honeypot = (formData.get('website') || '').trim();
+        const recaptchaToken = (formData.get('recaptchaToken') || '').trim();
 
         if (honeypot) {
             return json(
@@ -44,11 +45,26 @@ export async function onRequestPost(context) {
             errors.push('Bitte geben Sie eine gültige E-Mail-Adresse ein.');
         }
         if (!message) errors.push('Bitte geben Sie eine Nachricht ein.');
+        if (message && message.length < 10) {
+            errors.push('Bitte schreiben Sie eine etwas ausführlichere Nachricht.');
+        }
         if (!privacy) errors.push('Bitte stimmen Sie der Datenschutzerklärung zu.');
 
         if (errors.length > 0) {
             return json(
                 { success: false, message: errors.join(' ') },
+                422,
+                corsHeaders
+            );
+        }
+
+        const recaptchaCheck = await verifyRecaptcha(context, recaptchaToken);
+        if (!recaptchaCheck.ok) {
+            return json(
+                {
+                    success: false,
+                    message: recaptchaCheck.message,
+                },
                 422,
                 corsHeaders
             );
@@ -71,6 +87,10 @@ export async function onRequestPost(context) {
         const fromEmail = context.env?.MAIL_FROM || 'noreply@marknate.ch';
         const fullName = `${vorname} ${nachname}`;
         const date = new Date().toLocaleString('de-CH');
+        const ip =
+            context.request.headers.get('cf-connecting-ip') ||
+            context.request.headers.get('x-forwarded-for') ||
+            'Unbekannt';
 
         const textBody = [
             'Neue Kontaktanfrage über marknate.ch',
@@ -85,6 +105,8 @@ export async function onRequestPost(context) {
             '--------------------------------------',
             `Gesendet am: ${date}`,
             'Datenschutz akzeptiert: Ja',
+            `IP: ${ip}`,
+            `reCAPTCHA Score: ${recaptchaCheck.score ?? 'nicht aktiv'}`,
         ].join('\n');
 
         const htmlBody = `<!DOCTYPE html>
@@ -96,7 +118,7 @@ export async function onRequestPost(context) {
   <p><strong>E-Mail:</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></p>
   <p><strong>Nachricht:</strong><br>${escapeHtml(message).replace(/\n/g, '<br>')}</p>
   <hr>
-  <p><small>Gesendet am: ${escapeHtml(date)} | Datenschutz akzeptiert: Ja</small></p>
+  <p><small>Gesendet am: ${escapeHtml(date)} | Datenschutz akzeptiert: Ja | IP: ${escapeHtml(ip)} | reCAPTCHA Score: ${escapeHtml(String(recaptchaCheck.score ?? 'nicht aktiv'))}</small></p>
 </body>
 </html>`;
 
@@ -168,9 +190,63 @@ export async function onRequestOptions() {
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Allow-Headers': 'Content-Type, Accept',
         },
     });
+}
+
+async function verifyRecaptcha(context, token) {
+    const secret = context.env?.RECAPTCHA_SECRET;
+    if (!secret) {
+        return { ok: true, score: null };
+    }
+
+    if (!token) {
+        return {
+            ok: false,
+            message: 'Spam-Schutz fehlgeschlagen. Bitte laden Sie die Seite neu und versuchen Sie es erneut.',
+        };
+    }
+
+    const remoteip =
+        context.request.headers.get('cf-connecting-ip') ||
+        context.request.headers.get('x-forwarded-for') ||
+        '';
+
+    const body = new URLSearchParams({
+        secret,
+        response: token,
+        remoteip,
+    });
+
+    const verifyResponse = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body,
+    });
+
+    if (!verifyResponse.ok) {
+        return {
+            ok: false,
+            message: 'Spam-Schutz konnte nicht überprüft werden. Bitte später erneut versuchen.',
+        };
+    }
+
+    const verifyData = await verifyResponse.json();
+    const score = typeof verifyData.score === 'number' ? verifyData.score : 0;
+    const action = String(verifyData.action || '');
+    const success = verifyData.success === true && score >= 0.5 && action === 'kontaktformular';
+
+    if (!success) {
+        return {
+            ok: false,
+            message: 'Ihre Anfrage konnte aus Sicherheitsgründen nicht gesendet werden.',
+        };
+    }
+
+    return { ok: true, score };
 }
 
 function json(payload, status, headers) {
