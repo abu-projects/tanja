@@ -3,10 +3,8 @@
  * Endpunkt: /submit (POST)
  *
  * Mail provider: MailChannels API
- * Required env vars:
- * - MAILCHANNELS_API_KEY
- *
  * Optional env vars:
+ * - MAILCHANNELS_API_KEY (recommended)
  * - CONTACT_EMAIL (default: info@marknate.ch)
  * - MAIL_FROM (default: noreply@marknate.ch)
  */
@@ -70,18 +68,10 @@ export async function onRequestPost(context) {
             );
         }
 
-        const apiKey = context.env?.MAILCHANNELS_API_KEY;
-        if (!apiKey) {
-            return json(
-                {
-                    success: false,
-                    message: 'E-Mail-Versand ist nicht eingerichtet.',
-                    details: 'MAILCHANNELS_API_KEY fehlt',
-                },
-                500,
-                corsHeaders
-            );
-        }
+        const apiKey =
+            context.env?.MAILCHANNELS_API_KEY ||
+            context.env?.MAILCHANNELS_KEY ||
+            '';
 
         const recipient = context.env?.CONTACT_EMAIL || 'info@marknate.ch';
         const fromEmail = context.env?.MAIL_FROM || 'noreply@marknate.ch';
@@ -122,12 +112,16 @@ export async function onRequestPost(context) {
 </body>
 </html>`;
 
+        const requestHeaders = {
+            'Content-Type': 'application/json',
+        };
+        if (apiKey) {
+            requestHeaders['X-Api-Key'] = apiKey;
+        }
+
         const mcResponse = await fetch('https://api.mailchannels.net/tx/v1/send', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Api-Key': apiKey,
-            },
+            headers: requestHeaders,
             body: JSON.stringify({
                 personalizations: [
                     {
@@ -162,11 +156,14 @@ export async function onRequestPost(context) {
         }
 
         const providerError = sanitizeErrorText(await mcResponse.text());
+        const keyHint = !apiKey
+            ? ' Hinweis: MAILCHANNELS_API_KEY ist nicht gesetzt.'
+            : '';
         return json(
             {
                 success: false,
                 message: 'E-Mail-Versand fehlgeschlagen.',
-                details: `MailChannels ${mcResponse.status}: ${providerError}`,
+                details: `MailChannels ${mcResponse.status}: ${providerError}${keyHint}`,
             },
             500,
             corsHeaders
