@@ -9,5 +9,6 @@ directory = "./dist"
 [vars]
 CONTACT_EMAIL = "info@marknate.ch"
 MAIL_FROM = "noreply@marknate.ch"
-# RECAPTCHA_SECRET must be stored as a Wrangler secret:
-# wrangler secret put RECAPTCHA_SECRET
+
+# RESEND_API_KEY must be stored as a Wrangler secret:
+# wrangler secret put RESEND_API_KEY

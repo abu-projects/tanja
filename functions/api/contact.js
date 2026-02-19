@@ -1,12 +1,13 @@
 /**
  * Marknate Contact Form Handler – Cloudflare Worker
- * Endpunkt: /submit (POST)
+ * Endpunkt: /submit & /api/contact (POST)
  *
- * Mail provider: MailChannels API
+ * Mail provider: Resend (https://resend.com)
+ * Required env vars (set as secrets):
+ * - RESEND_API_KEY
  * Optional env vars:
- * - MAILCHANNELS_API_KEY (recommended)
  * - CONTACT_EMAIL (default: info@marknate.ch)
- * - MAIL_FROM (default: noreply@marknate.ch)
+ * - MAIL_FROM (default: onboarding@resend.dev)
  */
 
 export async function onRequestPost(context) {
@@ -26,8 +27,8 @@ export async function onRequestPost(context) {
         const message = (formData.get('message') || '').trim();
         const privacy = (formData.get('privacy') || '').trim();
         const honeypot = (formData.get('website') || '').trim();
-        const recaptchaToken = (formData.get('recaptchaToken') || '').trim();
 
+        // Honeypot – bots fill hidden fields
         if (honeypot) {
             return json(
                 { success: true, message: 'Nachricht erfolgreich gesendet.' },
@@ -36,6 +37,7 @@ export async function onRequestPost(context) {
             );
         }
 
+        // ── Validation ──────────────────────────────────────────────
         const errors = [];
         if (!vorname) errors.push('Bitte geben Sie Ihren Vornamen ein.');
         if (!nachname) errors.push('Bitte geben Sie Ihren Nachnamen ein.');
@@ -56,25 +58,24 @@ export async function onRequestPost(context) {
             );
         }
 
-        const recaptchaCheck = await verifyRecaptcha(context, recaptchaToken);
-        if (!recaptchaCheck.ok) {
+        // ── Resend API Key ──────────────────────────────────────────
+        const apiKey = context.env?.RESEND_API_KEY || '';
+        if (!apiKey) {
             return json(
                 {
                     success: false,
-                    message: recaptchaCheck.message,
+                    message: 'E-Mail-Versand ist momentan nicht verfügbar. Bitte schreiben Sie direkt an info@marknate.ch.',
+                    details: 'RESEND_API_KEY ist nicht gesetzt.',
                 },
-                422,
+                500,
                 corsHeaders
             );
         }
 
-        const apiKey =
-            context.env?.MAILCHANNELS_API_KEY ||
-            context.env?.MAILCHANNELS_KEY ||
-            '';
-
         const recipient = context.env?.CONTACT_EMAIL || 'info@marknate.ch';
-        const fromEmail = context.env?.MAIL_FROM || 'noreply@marknate.ch';
+        // Use your verified domain sender, or fallback to Resend's onboarding address
+        const fromEmail = context.env?.MAIL_FROM || 'onboarding@resend.dev';
+        const fromName = 'Marknate Website';
         const fullName = `${vorname} ${nachname}`;
         const date = new Date().toLocaleString('de-CH');
         const ip =
@@ -82,6 +83,7 @@ export async function onRequestPost(context) {
             context.request.headers.get('x-forwarded-for') ||
             'Unbekannt';
 
+        // ── Build email content ─────────────────────────────────────
         const textBody = [
             'Neue Kontaktanfrage über marknate.ch',
             '======================================',
@@ -96,7 +98,6 @@ export async function onRequestPost(context) {
             `Gesendet am: ${date}`,
             'Datenschutz akzeptiert: Ja',
             `IP: ${ip}`,
-            `reCAPTCHA Score: ${recaptchaCheck.score ?? 'nicht aktiv'}`,
         ].join('\n');
 
         const htmlBody = `<!DOCTYPE html>
@@ -108,43 +109,28 @@ export async function onRequestPost(context) {
   <p><strong>E-Mail:</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></p>
   <p><strong>Nachricht:</strong><br>${escapeHtml(message).replace(/\n/g, '<br>')}</p>
   <hr>
-  <p><small>Gesendet am: ${escapeHtml(date)} | Datenschutz akzeptiert: Ja | IP: ${escapeHtml(ip)} | reCAPTCHA Score: ${escapeHtml(String(recaptchaCheck.score ?? 'nicht aktiv'))}</small></p>
+  <p><small>Gesendet am: ${escapeHtml(date)} | Datenschutz akzeptiert: Ja | IP: ${escapeHtml(ip)}</small></p>
 </body>
 </html>`;
 
-        const requestHeaders = {
-            'Content-Type': 'application/json',
-        };
-        if (apiKey) {
-            requestHeaders['X-Api-Key'] = apiKey;
-        }
-
-        const mcResponse = await fetch('https://api.mailchannels.net/tx/v1/send', {
+        // ── Send via Resend API ─────────────────────────────────────
+        const resendResponse = await fetch('https://api.resend.com/emails', {
             method: 'POST',
-            headers: requestHeaders,
+            headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json',
+            },
             body: JSON.stringify({
-                personalizations: [
-                    {
-                        to: [{ email: recipient, name: 'Marknate' }],
-                    },
-                ],
-                from: {
-                    email: fromEmail,
-                    name: 'Marknate Website',
-                },
-                reply_to: {
-                    email,
-                    name: fullName,
-                },
+                from: `${fromName} <${fromEmail}>`,
+                to: [recipient],
+                reply_to: email,
                 subject: `[Marknate Kontaktformular] Neue Anfrage von ${fullName}`,
-                content: [
-                    { type: 'text/plain', value: textBody },
-                    { type: 'text/html', value: htmlBody },
-                ],
+                text: textBody,
+                html: htmlBody,
             }),
         });
 
-        if (mcResponse.ok || mcResponse.status === 202) {
+        if (resendResponse.ok || resendResponse.status === 200) {
             return json(
                 {
                     success: true,
@@ -155,15 +141,14 @@ export async function onRequestPost(context) {
             );
         }
 
-        const providerError = sanitizeErrorText(await mcResponse.text());
-        const keyHint = !apiKey
-            ? ' Hinweis: MAILCHANNELS_API_KEY ist nicht gesetzt.'
-            : '';
+        // ── Handle Resend errors ────────────────────────────────────
+        const errorBody = await resendResponse.text();
+        const providerError = sanitizeErrorText(errorBody);
         return json(
             {
                 success: false,
-                message: 'E-Mail-Versand fehlgeschlagen.',
-                details: `MailChannels ${mcResponse.status}: ${providerError}${keyHint}`,
+                message: 'E-Mail-Versand fehlgeschlagen. Bitte versuchen Sie es später erneut oder schreiben Sie direkt an info@marknate.ch.',
+                details: `Resend ${resendResponse.status}: ${providerError}`,
             },
             500,
             corsHeaders
@@ -190,60 +175,6 @@ export async function onRequestOptions() {
             'Access-Control-Allow-Headers': 'Content-Type, Accept',
         },
     });
-}
-
-async function verifyRecaptcha(context, token) {
-    const secret = context.env?.RECAPTCHA_SECRET;
-    if (!secret) {
-        return { ok: true, score: null };
-    }
-
-    if (!token) {
-        return {
-            ok: false,
-            message: 'Spam-Schutz fehlgeschlagen. Bitte laden Sie die Seite neu und versuchen Sie es erneut.',
-        };
-    }
-
-    const remoteip =
-        context.request.headers.get('cf-connecting-ip') ||
-        context.request.headers.get('x-forwarded-for') ||
-        '';
-
-    const body = new URLSearchParams({
-        secret,
-        response: token,
-        remoteip,
-    });
-
-    const verifyResponse = await fetch('https://www.google.com/recaptcha/api/siteverify', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body,
-    });
-
-    if (!verifyResponse.ok) {
-        return {
-            ok: false,
-            message: 'Spam-Schutz konnte nicht überprüft werden. Bitte später erneut versuchen.',
-        };
-    }
-
-    const verifyData = await verifyResponse.json();
-    const score = typeof verifyData.score === 'number' ? verifyData.score : 0;
-    const action = String(verifyData.action || '');
-    const success = verifyData.success === true && score >= 0.5 && action === 'kontaktformular';
-
-    if (!success) {
-        return {
-            ok: false,
-            message: 'Ihre Anfrage konnte aus Sicherheitsgründen nicht gesendet werden.',
-        };
-    }
-
-    return { ok: true, score };
 }
 
 function json(payload, status, headers) {

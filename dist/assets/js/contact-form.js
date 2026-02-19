@@ -173,7 +173,7 @@
                     formData.set('recaptchaToken', recaptchaToken);
                 }
 
-                const response = await fetch('/submit', {
+                const response = await fetch('/api/contact', {
                     method: 'POST',
                     headers: {
                         Accept: 'application/json',
