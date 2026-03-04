@@ -542,17 +542,15 @@
             <div class="hidden md:flex items-center gap-8">
                 <a href="#philosophie"
                     class="text-sm font-semibold uppercase tracking-wide text-brand-text hover:text-brand transition-colors">Über
-                    MARKNATE</a>
+                    mich</a>
                 <a href="#schwerpunkte"
                     class="text-sm font-semibold uppercase tracking-wide text-brand-text hover:text-brand transition-colors">Angebot</a>
                 <a href="#preise"
                     class="text-sm font-semibold uppercase tracking-wide text-brand-text hover:text-brand transition-colors">Preise</a>
                 <a href="#kontakt"
-                    class="text-sm font-semibold uppercase tracking-wide text-brand-text hover:text-brand transition-colors">Kontakt</a>
-                <a href="#buchen"
                     class="px-6 py-2.5 bg-brand text-white text-sm font-semibold rounded-full hover:bg-brand-dark transition-all shadow-lg hover:shadow-brand/30 flex items-center gap-2">
-                    <span class="iconify" data-icon="lucide:calendar-check" data-width="16"></span>
-                    Strategiegespräch buchen
+                    <span class="iconify" data-icon="lucide:mail" data-width="16"></span>
+                    Kontakt
                 </a>
                 <a href="en.html"
                     class="flex items-center gap-1 text-sm font-bold text-brand hover:text-brand-dark transition-colors uppercase tracking-wide">
@@ -603,13 +601,10 @@
                     class="text-lg font-medium text-brand-text block py-4 px-2 border-b border-gray-100 hover:bg-gray-50"
                     onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('icon-burger').classList.remove('hidden'); document.getElementById('icon-close').classList.add('hidden');">Preise</a>
                 <a href="#kontakt"
-                    class="text-lg font-medium text-brand-text block py-4 px-2 border-b border-gray-100 hover:bg-gray-50"
-                    onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('icon-burger').classList.remove('hidden'); document.getElementById('icon-close').classList.add('hidden');">Kontakt</a>
-                <a href="#buchen"
                     class="text-lg font-bold text-white bg-brand block p-3 rounded-xl text-center mt-6 shadow-md"
                     onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('icon-burger').classList.remove('hidden'); document.getElementById('icon-close').classList.add('hidden');">
-                    <span class="iconify inline-block mr-1" data-icon="lucide:calendar-check" data-width="18"></span>
-                    Strategiegespräch buchen
+                    <span class="iconify inline-block mr-1" data-icon="lucide:mail" data-width="18"></span>
+                    Kontakt
                 </a>
             </div>
         </div>
@@ -644,10 +639,10 @@
                         erfolgreich.
                     </p>
                     <div class="flex flex-wrap gap-4 pt-4">
-                        <a href="#buchen"
+                        <a href="#kontakt"
                             class="px-8 py-4 bg-brand text-white font-bold rounded-xl hover:bg-brand-dark transition-all transform hover:-translate-y-1 shadow-lg shadow-brand/20 flex items-center gap-2 group">
-                            <span class="iconify" data-icon="lucide:calendar-check"></span>
-                            Strategiegespräch vereinbaren
+                            <span class="iconify" data-icon="lucide:mail"></span>
+                            Kontakt
                             <span class="iconify group-hover:translate-x-1 transition-transform"
                                 data-icon="lucide:arrow-right"></span>
                         </a>
@@ -752,65 +747,87 @@
         </header>
 
         <!-- Philosophie / Über mich Section -->
-        <section id="philosophie" class="py-32 bg-white relative overflow-hidden" aria-label="Über Marknate">
-            <!-- Decoration -->
+        <section id="philosophie" class="py-24 bg-white relative overflow-hidden" aria-label="Über Mich">
             <div
                 class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-light to-transparent">
             </div>
 
-            <div class="container max-w-4xl mx-auto px-6 text-center relative z-10">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-brand-text">MEINE PHILOSOPHIE</h2>
-                <p class="text-brand-gray text-lg mb-16 uppercase tracking-widest font-semibold">Was steht hinter
-                    marknate..?</p>
+            <div class="container max-w-7xl mx-auto px-6 relative z-10">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
 
-                <div class="grid md:grid-cols-3 gap-8 mb-24">
-                    <div
-                        class="p-10 rounded-3xl bg-white border border-brand-light hover:border-brand shadow-lg hover:shadow-brand/10 transition-all group relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-4 opacity-10">
-                            <span class="iconify text-brand w-24 h-24" data-icon="lucide:pen-tool"></span>
+                    <!-- Portrait -->
+                    <div class="relative group hidden lg:block">
+                        <div
+                            class="absolute -inset-4 bg-brand-light/30 rounded-3xl transform rotate-3 transition-transform group-hover:rotate-6 duration-500">
                         </div>
-                        <h3
-                            class="text-3xl font-extrabold text-brand mb-4 group-hover:scale-110 transition-transform relative z-10">
-                            MARK</h3>
-                        <p class="font-medium text-brand-text text-lg relative z-10">Branding</p>
+                        <img src="assets/imgs/hero.jpg" alt="Tanja Jans"
+                            class="relative z-10 rounded-3xl shadow-2xl object-cover w-full h-auto aspect-[3/4]">
+
+                        <!-- Floating Badge -->
+                        <div
+                            class="absolute bottom-8 -right-8 z-20 bg-white p-6 rounded-2xl shadow-xl border border-brand/10 animate-[floatUp_4s_ease-in-out_infinite]">
+                            <div class="flex items-center gap-4">
+                                <span class="iconify text-brand w-10 h-10" data-icon="lucide:award"></span>
+                                <div>
+                                    <p class="font-bold text-brand-text text-xl">15+ Jahre</p>
+                                    <p class="text-sm text-brand-gray">Marketing Erfahrung</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div
-                        class="p-10 rounded-3xl bg-white border border-brand-light hover:border-brand shadow-lg hover:shadow-brand/10 transition-all group relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-4 opacity-10">
-                            <span class="iconify text-brand w-24 h-24" data-icon="lucide:briefcase"></span>
+
+                    <!-- Text Content -->
+                    <div class="space-y-6">
+                        <div
+                            class="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-light/40 border border-brand/10 rounded-full mb-2">
+                            <span class="w-2 h-2 rounded-full bg-brand"></span>
+                            <span class="text-xs font-bold text-brand uppercase tracking-widest">Über Mich</span>
                         </div>
-                        <h3
-                            class="text-3xl font-extrabold text-brand mb-4 group-hover:scale-110 transition-transform relative z-10">
-                            MARKT</h3>
-                        <p class="font-medium text-brand-text text-lg relative z-10">Business</p>
-                    </div>
-                    <div
-                        class="p-10 rounded-3xl bg-white border border-brand-light hover:border-brand shadow-lg hover:shadow-brand/10 transition-all group relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-4 opacity-10">
-                            <span class="iconify text-brand w-24 h-24" data-icon="lucide:sparkles"></span>
+                        <h2 class="text-3xl md:text-5xl font-bold text-brand-text leading-tight">
+                            Marketing ist für mich mehr als Kommunikation.
+                        </h2>
+
+                        <p class="text-xl text-brand font-medium">Es ist Strategie, Verantwortung und unternehmerisches
+                            Denken.</p>
+
+                        <div class="prose prose-lg text-brand-gray/80 space-y-4 max-w-none">
+                            <p>Ich bin <strong class="text-brand-text">Tanja</strong>, die Gründerin von marknate. Mit
+                                meinen zwei Kindern und meinem Mann wohne ich in einem wunderschönen alten Bauernhaus in
+                                der Nähe von Zug. Wenn du mit mir zusammenarbeitest, erwartet dich eine persönliche
+                                Betreuung mit Feingefühl, Klarheit und ehrlichem Feedback.</p>
+
+                            <p>Marketing ist für mich Strategie, Verantwortung und unternehmerisches Denken.
+                                Gleichzeitig muss jede Botschaft emotional wirken und echte Verbindung schaffen.</p>
+
+                            <p>Seit über 15 Jahren arbeite ich im strategischen Marketing, unter anderem beim
+                                Migros-Genossenschafts-Bund und bei der Genossenschaft Migros Luzern.</p>
+
+                            <p>Ich habe Marketingstrategien entwickelt, bereichsübergreifende Projekte geleitet,
+                                Führungsverantwortung getragen und Umsatz-, Margen- sowie Ertragsverantwortung
+                                übernommen. Ich kenne Marketing nicht nur konzeptionell, sondern aus operativer und
+                                wirtschaftlicher Gesamtverantwortung.</p>
+
+                            <!-- Mobile Portrait -->
+                            <div class="lg:hidden relative block w-full mt-8 mb-8">
+                                <img src="assets/imgs/hero.jpg" alt="Tanja Jans"
+                                    class="rounded-3xl shadow-xl object-cover w-full h-auto">
+                            </div>
+
+                            <p>Ebenso unterrichtete ich Marketing und Vermarktung am Landwirtschaftliches Bildungs- und
+                                Beratungszentrum LBBZ Schluechthof Cham an der Höheren Fachschule und Berufsschule und
+                                begleite Betriebe strategisch in der Direktvermarktung.</p>
+
+                            <p>Diese Kombination aus strategischer Praxis, Führungserfahrung und Lehrtätigkeit
+                                ermöglicht mir eines: komplexe Zusammenhänge klar zu strukturieren und wirksam
+                                umzusetzen.</p>
+
+                            <div class="mt-8">
+                                <p class="text-2xl font-bold text-brand mt-8 tracking-wide font-display uppercase">Klar.
+                                    Inspirierend. Wirksam.</p>
+                            </div>
                         </div>
-                        <h3
-                            class="text-3xl font-extrabold text-brand mb-4 group-hover:scale-110 transition-transform relative z-10">
-                            NATE</h3>
-                        <p class="font-medium text-brand-text text-lg relative z-10">Erzeugen<br>Erneuern<br>Kreieren
-                        </p>
                     </div>
                 </div>
-
-                <div class="relative max-w-3xl mx-auto">
-                    <span class="absolute -top-10 -left-10 text-9xl text-brand/10 font-serif leading-none">“</span>
-                    <blockquote
-                        class="text-2xl md:text-3xl font-display font-medium text-brand-text leading-relaxed relative z-10">
-                        Durch meine Marketing Expertise hole ich das Beste aus deinem Unternehmen heraus.
-                    </blockquote>
-                    <cite class="block mt-8 flex items-center justify-center gap-4">
-                        <div class="h-px w-12 bg-brand"></div>
-                        <span class="text-brand font-bold not-italic tracking-wide uppercase">Tanja Jans</span>
-                        <div class="h-px w-12 bg-brand"></div>
-                    </cite>
-                </div>
-
-
             </div>
         </section>
 
@@ -828,7 +845,7 @@
                                 <span class="text-brand">SCHWERPUNKTE</span>
                             </h2>
                             <p class="text-brand-gray text-xl leading-relaxed mb-8">
-                                Als dein externer Marketing Partner biete ich maßgeschneiderte Lösungen, die genau dort
+                                Als dein externer Marketing Partner biete ich massgeschneiderte Lösungen, die genau dort
                                 ansetzen, wo du Unterstützung brauchst.
                             </p>
                             <a href="#buchen"
@@ -1048,150 +1065,24 @@
             </div>
         </section>
 
-        <!-- Booking Section -->
-        <section id="buchen" class="py-32 bg-white relative overflow-hidden" aria-label="Strategiegespräch buchen">
-            <!-- Subtle background decoration -->
-            <div
-                class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand/20 to-transparent">
-            </div>
-            <div
-                class="absolute -top-[300px] -right-[200px] w-[600px] h-[600px] bg-brand/3 rounded-full blur-[120px] pointer-events-none">
-            </div>
-            <div
-                class="absolute -bottom-[200px] -left-[200px] w-[500px] h-[500px] bg-brand-light/30 rounded-full blur-[100px] pointer-events-none">
-            </div>
-
-            <div class="container max-w-7xl mx-auto px-6 relative z-10">
+        <!-- Kontakt Section -->
+        <section id="kontakt" class="py-24 bg-gray-50/50 relative border-t border-gray-100" aria-label="Kontakt">
+            <div class="container max-w-7xl mx-auto px-6">
                 <!-- Section Header -->
                 <div class="text-center max-w-3xl mx-auto mb-16 reveal">
                     <div
                         class="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-light/40 border border-brand/10 rounded-full mb-6">
                         <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
-                        <span class="text-xs font-bold text-brand uppercase tracking-widest">Kostenlos &
-                            unverbindlich</span>
+                        <span class="text-xs font-bold text-brand uppercase tracking-widest">Kontakt
+                            aufnehmen</span>
                     </div>
                     <h2 class="text-4xl md:text-5xl font-bold text-brand-text mb-6">Bereit für den nächsten Schritt?
                     </h2>
                     <p class="text-xl text-brand-gray/70 leading-relaxed">
-                        Buche ein unverbindliches 30-Minuten Strategiegespräch.
+                        Schreib mir eine E-Mail, ruf an oder buche direkt ein unverbindliches Strategiegespräch.
                     </p>
                 </div>
 
-                <div class="grid lg:grid-cols-5 gap-12 lg:gap-16 items-start">
-                    <!-- Left: Benefits -->
-                    <div class="lg:col-span-2 space-y-8 reveal">
-                        <!-- Portrait + Intro -->
-                        <div class="flex items-center gap-5 mb-8">
-                            <div
-                                class="relative w-20 h-20 rounded-full overflow-hidden border-2 border-brand shadow-lg shrink-0">
-                                <img src="assets/imgs/hero.jpg" alt="Tanja Jans"
-                                    class="w-full h-full object-cover object-top">
-                            </div>
-                            <div>
-                                <p class="font-bold text-brand-text text-lg">Tanja Jans</p>
-                                <p class="text-sm text-brand-gray/60">Geschäftsführerin </p>
-                            </div>
-                        </div>
-
-                        <p class="text-brand-gray/70 leading-relaxed text-lg">
-                            In einem persönlichen Gespräch analysieren wir gemeinsam deine aktuelle Situation und
-                            entwickeln
-                            erste konkrete Schritte für deinen Erfolg.
-                        </p>
-
-                        <!-- Benefits -->
-                        <div class="space-y-5 pt-4">
-                            <div class="booking-check flex items-start gap-4">
-                                <div
-                                    class="mt-0.5 w-8 h-8 rounded-xl bg-brand-light/50 flex items-center justify-center text-brand shrink-0">
-                                    <span class="iconify" data-icon="lucide:target" data-width="18"></span>
-                                </div>
-                                <div>
-                                    <p class="font-semibold text-brand-text">Klare Einschätzung deiner aktuellen
-                                        Situation
-                                    </p>
-                                    <p class="text-sm text-brand-gray/60 mt-1">Wir verschaffen dir einen objektiven
-                                        Überblick.</p>
-                                </div>
-                            </div>
-                            <div class="booking-check flex items-start gap-4">
-                                <div
-                                    class="mt-0.5 w-8 h-8 rounded-xl bg-brand-light/50 flex items-center justify-center text-brand shrink-0">
-                                    <span class="iconify" data-icon="lucide:route" data-width="18"></span>
-                                </div>
-                                <div>
-                                    <p class="font-semibold text-brand-text">Konkrete nächste Handlungsschritte</p>
-                                    <p class="text-sm text-brand-gray/60 mt-1">Du gehst mit einem klaren Plan aus dem
-                                        Gespräch.</p>
-                                </div>
-                            </div>
-                            <div class="booking-check flex items-start gap-4">
-                                <div
-                                    class="mt-0.5 w-8 h-8 rounded-xl bg-brand-light/50 flex items-center justify-center text-brand shrink-0">
-                                    <span class="iconify" data-icon="lucide:sparkles" data-width="18"></span>
-                                </div>
-                                <div>
-                                    <p class="font-semibold text-brand-text">Persönliche strategische Beratung</p>
-                                    <p class="text-sm text-brand-gray/60 mt-1">Individuelle Lösungen statt generischer
-                                        Empfehlungen.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Trust note -->
-                        <div class="pt-6 border-t border-gray-100">
-                            <div class="flex items-center gap-3">
-                                <div
-                                    class="w-10 h-10 rounded-full bg-brand/10 flex items-center justify-center text-brand">
-                                    <span class="iconify" data-icon="lucide:shield-check" data-width="20"></span>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-semibold text-brand-text">100% kostenlos & unverbindlich</p>
-                                    <p class="text-xs text-brand-gray/50">Kein Risiko. Kein Kleingedrucktes.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Right: Booking Card -->
-                    <div class="lg:col-span-3 reveal">
-                        <div
-                            class="bg-white rounded-3xl booking-glow border border-gray-100/80 overflow-hidden p-10 md:p-14 flex flex-col items-center text-center">
-                            <!-- Calendar icon -->
-                            <div
-                                class="w-20 h-20 rounded-2xl bg-brand-light/50 flex items-center justify-center text-brand mb-8">
-                                <span class="iconify" data-icon="lucide:calendar-check" data-width="40"></span>
-                            </div>
-
-                            <h3 class="text-2xl font-bold text-brand-text mb-3">30-Minuten Strategiegespräch</h3>
-                            <p class="text-brand-gray/60 mb-8 max-w-md">
-                                Wähle deinen Wunschtermin – du erhältst direkt eine Bestätigung per E-Mail.
-                            </p>
-
-                            <!-- Calendly Popup Button -->
-                            <a href=""
-                                onclick="Calendly.initPopupWidget({url: 'https://calendly.com/janstanja1/30min'});return false;"
-                                class="w-full max-w-sm py-5 bg-brand text-white font-bold rounded-xl hover:bg-brand-dark transition-all shadow-lg hover:shadow-brand/30 flex items-center justify-center gap-3 group text-lg">
-                                <span class="iconify" data-icon="lucide:calendar-check" data-width="22"></span>
-                                Termin auswählen
-                                <span class="iconify group-hover:translate-x-1 transition-transform"
-                                    data-icon="lucide:arrow-right" data-width="20"></span>
-                            </a>
-
-                            <!-- Microcopy -->
-                            <div class="flex items-center justify-center gap-2 mt-6 text-sm text-brand-gray/50">
-                                <span class="iconify" data-icon="lucide:mail-check" data-width="16"></span>
-                                <p>Du erhältst direkt eine Bestätigung per E-Mail.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Kontakt Section -->
-        <section id="kontakt" class="py-24 bg-gray-50/50 relative border-t border-gray-100" aria-label="Kontakt">
-            <div class="container max-w-7xl mx-auto px-6">
                 <div class="grid lg:grid-cols-2 gap-16 items-start">
                     <!-- Info -->
                     <div class="space-y-10 lg:sticky lg:top-32">
@@ -1201,12 +1092,6 @@
                             <p class="text-lg text-brand-gray/70 leading-relaxed">
                                 Lieber per E-Mail oder Telefon? Kein Problem – ich freue mich auf deine Nachricht.
                             </p>
-                            <a href="#buchen"
-                                class="inline-flex items-center gap-2 mt-4 text-brand font-semibold text-sm hover:text-brand-dark transition-colors">
-                                <span class="iconify" data-icon="lucide:calendar-check" data-width="16"></span>
-                                Oder direkt ein Strategiegespräch buchen
-                                <span class="iconify" data-icon="lucide:arrow-up" data-width="14"></span>
-                            </a>
                         </div>
 
                         <div class="space-y-8">
@@ -1246,22 +1131,36 @@
                                         class="text-brand-gray hover:text-brand transition-colors text-lg font-medium">info@marknate.ch</a>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Socials & Profile -->
-                        <div class="pt-10 border-t border-gray-100 flex flex-col sm:flex-row items-center gap-8">
-                            <div class="text-center sm:text-left">
-                                <div class="flex gap-4 justify-center sm:justify-start mb-3">
-                                    <a href="https://www.linkedin.com/in/tanja-jans-0a991395/" target="_blank"
-                                        class="w-10 h-10 rounded-full bg-brand-text text-white flex items-center justify-center hover:bg-brand hover:-translate-y-1 transition-all shadow-md">
-                                        <span class="iconify" data-icon="lucide:linkedin" data-width="20"></span>
-                                    </a>
-
+                            <div class="flex items-center gap-6 group">
+                                <div
+                                    class="w-14 h-14 bg-brand-light/50 rounded-2xl flex items-center justify-center text-brand shrink-0 group-hover:bg-brand group-hover:text-white transition-all duration-300 shadow-sm">
+                                    <span class="iconify" data-icon="lucide:linkedin" data-width="24"></span>
                                 </div>
-                                <p class="text-sm text-brand-gray italic">„Auf Linkedin findest du alles über meinen
-                                    Background"</p>
+                                <div>
+                                    <h4 class="font-bold text-brand-text text-lg mb-1">LinkedIn</h4>
+                                    <a href="https://www.linkedin.com/in/tanja-jans-0a991395/" target="_blank"
+                                        class="text-brand-gray hover:text-brand transition-colors text-lg font-medium">Tanja
+                                        Jans</a>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-6 group">
+                                <div
+                                    class="w-14 h-14 bg-brand-light/50 rounded-2xl flex items-center justify-center text-brand shrink-0 group-hover:bg-brand group-hover:text-white transition-all duration-300 shadow-sm">
+                                    <span class="iconify" data-icon="lucide:calendar" data-width="24"></span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-brand-text text-lg mb-1">Termin buchen</h4>
+                                    <a href=""
+                                        onclick="Calendly.initPopupWidget({url: 'https://calendly.com/janstanja1/30min'});return false;"
+                                        class="text-brand-gray hover:text-brand transition-colors text-lg font-medium">30-Minuten
+                                        Strategiegespräch</a>
+                                </div>
                             </div>
                         </div>
+
+
                     </div>
 
                     <!-- Form -->
@@ -1403,19 +1302,21 @@
                             class="w-12 h-12 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center text-brand hover:bg-brand hover:text-white hover:border-brand transition-all">
                             <span class="iconify" data-icon="lucide:linkedin" data-width="20"></span>
                         </a>
+                        <a href="https://www.instagram.com/markn.ate/" target="_blank"
+                            class="w-12 h-12 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center text-brand hover:bg-brand hover:text-white hover:border-brand transition-all">
+                            <span class="iconify" data-icon="lucide:instagram" data-width="20"></span>
+                        </a>
+                    </div>
+                </div>
 
+                <div
+                    class="pt-8 border-t border-brand/20 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-brand-gray">
+                    <p>&copy; 2026 Marknate, Tanja Jans GmbH. Alle Rechte vorbehalten.</p>
+                    <div class="flex items-center gap-1">
+                        Made with <span class="text-brand animate-pulse">♥</span> in Switzerland
                     </div>
                 </div>
             </div>
-
-            <div
-                class="pt-8 border-t border-brand/20 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-brand-gray">
-                <p>&copy; 2026 Marknate, Tanja Jans GmbH. Alle Rechte vorbehalten.</p>
-                <div class="flex items-center gap-1">
-                    Made with <span class="text-brand animate-pulse">♥</span> in Switzerland
-                </div>
-            </div>
-        </div>
     </footer>
 
     <!-- Legal Modals -->
@@ -1538,6 +1439,17 @@
     <!-- Calendly widget script -->
     <script type="text/javascript" src="assets/js/calendly-widget.js" async></script>
     <script src="assets/js/contact-form.js?v=2026-02-19-1"></script>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/41788129500" target="_blank" rel="noopener noreferrer"
+        class="fixed bottom-[90px] right-5 z-50 w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-lg shadow-[#25D366]/30 hover:scale-110 transition-all duration-300 group">
+        <span class="iconify" data-icon="ic:baseline-whatsapp" data-width="32"></span>
+        <!-- Tooltip -->
+        <span
+            class="absolute right-full mr-4 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-gray-900 text-white text-sm font-medium rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 whitespace-nowrap shadow-md">
+            Chat auf WhatsApp
+        </span>
+    </a>
 
     <script>
         // Smooth scroll fix for standard links

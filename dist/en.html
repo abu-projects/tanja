@@ -541,17 +541,16 @@
             <!-- Desktop Menu -->
             <div class="hidden md:flex items-center gap-8">
                 <a href="#philosophie"
-                    class="text-sm font-semibold uppercase tracking-wide text-brand-text hover:text-brand transition-colors">About</a>
+                    class="text-sm font-semibold uppercase tracking-wide text-brand-text hover:text-brand transition-colors">About
+                    me</a>
                 <a href="#schwerpunkte"
                     class="text-sm font-semibold uppercase tracking-wide text-brand-text hover:text-brand transition-colors">Services</a>
                 <a href="#preise"
                     class="text-sm font-semibold uppercase tracking-wide text-brand-text hover:text-brand transition-colors">Pricing</a>
                 <a href="#kontakt"
-                    class="text-sm font-semibold uppercase tracking-wide text-brand-text hover:text-brand transition-colors">Contact</a>
-                <a href="#buchen"
                     class="px-6 py-2.5 bg-brand text-white text-sm font-semibold rounded-full hover:bg-brand-dark transition-all shadow-lg hover:shadow-brand/30 flex items-center gap-2">
-                    <span class="iconify" data-icon="lucide:calendar-check" data-width="16"></span>
-                    Book Strategy Call
+                    <span class="iconify" data-icon="lucide:mail" data-width="16"></span>
+                    Contact
                 </a>
                 <a href="index.html"
                     class="flex items-center gap-1 text-sm font-bold text-brand hover:text-brand-dark transition-colors uppercase tracking-wide">
@@ -593,7 +592,8 @@
             <div class="flex flex-col p-6">
                 <a href="#philosophie"
                     class="text-lg font-medium text-brand-text block py-4 px-2 border-b border-gray-100 hover:bg-gray-50"
-                    onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('icon-burger').classList.remove('hidden'); document.getElementById('icon-close').classList.add('hidden');">About</a>
+                    onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('icon-burger').classList.remove('hidden'); document.getElementById('icon-close').classList.add('hidden');">About
+                    me</a>
                 <a href="#schwerpunkte"
                     class="text-lg font-medium text-brand-text block py-4 px-2 border-b border-gray-100 hover:bg-gray-50"
                     onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('icon-burger').classList.remove('hidden'); document.getElementById('icon-close').classList.add('hidden');">Services</a>
@@ -601,13 +601,10 @@
                     class="text-lg font-medium text-brand-text block py-4 px-2 border-b border-gray-100 hover:bg-gray-50"
                     onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('icon-burger').classList.remove('hidden'); document.getElementById('icon-close').classList.add('hidden');">Pricing</a>
                 <a href="#kontakt"
-                    class="text-lg font-medium text-brand-text block py-4 px-2 border-b border-gray-100 hover:bg-gray-50"
-                    onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('icon-burger').classList.remove('hidden'); document.getElementById('icon-close').classList.add('hidden');">Contact</a>
-                <a href="#buchen"
                     class="text-lg font-bold text-white bg-brand block p-3 rounded-xl text-center mt-6 shadow-md"
                     onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('icon-burger').classList.remove('hidden'); document.getElementById('icon-close').classList.add('hidden');">
-                    <span class="iconify inline-block mr-1" data-icon="lucide:calendar-check" data-width="18"></span>
-                    Book Strategy Call
+                    <span class="iconify inline-block mr-1" data-icon="lucide:mail" data-width="18"></span>
+                    Contact
                 </a>
             </div>
         </div>
@@ -642,10 +639,10 @@
                         success.
                     </p>
                     <div class="flex flex-wrap gap-4 pt-4">
-                        <a href="#buchen"
+                        <a href="#kontakt"
                             class="px-8 py-4 bg-brand text-white font-bold rounded-xl hover:bg-brand-dark transition-all transform hover:-translate-y-1 shadow-lg shadow-brand/20 flex items-center gap-2 group">
-                            <span class="iconify" data-icon="lucide:calendar-check"></span>
-                            Book a Strategy Call
+                            <span class="iconify" data-icon="lucide:mail"></span>
+                            Contact
                             <span class="iconify group-hover:translate-x-1 transition-transform"
                                 data-icon="lucide:arrow-right"></span>
                         </a>
@@ -750,65 +747,86 @@
         </header>
 
         <!-- Philosophie / Über mich Section -->
-        <section id="philosophie" class="py-32 bg-white relative overflow-hidden" aria-label="About Marknate">
-            <!-- Decoration -->
+        <section id="philosophie" class="py-24 bg-white relative overflow-hidden" aria-label="About Me">
             <div
                 class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-light to-transparent">
             </div>
 
-            <div class="container max-w-4xl mx-auto px-6 text-center relative z-10">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-brand-text">MY PHILOSOPHY</h2>
-                <p class="text-brand-gray text-lg mb-16 uppercase tracking-widest font-semibold">What's behind
-                    marknate..?</p>
+            <div class="container max-w-7xl mx-auto px-6 relative z-10">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
 
-                <div class="grid md:grid-cols-3 gap-8 mb-24">
-                    <div
-                        class="p-10 rounded-3xl bg-white border border-brand-light hover:border-brand shadow-lg hover:shadow-brand/10 transition-all group relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-4 opacity-10">
-                            <span class="iconify text-brand w-24 h-24" data-icon="lucide:pen-tool"></span>
+                    <!-- Portrait -->
+                    <div class="relative group hidden lg:block">
+                        <div
+                            class="absolute -inset-4 bg-brand-light/30 rounded-3xl transform rotate-3 transition-transform group-hover:rotate-6 duration-500">
                         </div>
-                        <h3
-                            class="text-3xl font-extrabold text-brand mb-4 group-hover:scale-110 transition-transform relative z-10">
-                            MARK</h3>
-                        <p class="font-medium text-brand-text text-lg relative z-10">Branding</p>
+                        <img src="assets/imgs/hero.jpg" alt="Tanja Jans"
+                            class="relative z-10 rounded-3xl shadow-2xl object-cover w-full h-auto aspect-[3/4]">
+
+                        <!-- Floating Badge -->
+                        <div
+                            class="absolute bottom-8 -right-8 z-20 bg-white p-6 rounded-2xl shadow-xl border border-brand/10 animate-[floatUp_4s_ease-in-out_infinite]">
+                            <div class="flex items-center gap-4">
+                                <span class="iconify text-brand w-10 h-10" data-icon="lucide:award"></span>
+                                <div>
+                                    <p class="font-bold text-brand-text text-xl">15+ Years</p>
+                                    <p class="text-sm text-brand-gray">Marketing Experience</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div
-                        class="p-10 rounded-3xl bg-white border border-brand-light hover:border-brand shadow-lg hover:shadow-brand/10 transition-all group relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-4 opacity-10">
-                            <span class="iconify text-brand w-24 h-24" data-icon="lucide:briefcase"></span>
+
+                    <!-- Text Content -->
+                    <div class="space-y-6">
+                        <div
+                            class="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-light/40 border border-brand/10 rounded-full mb-2">
+                            <span class="w-2 h-2 rounded-full bg-brand"></span>
+                            <span class="text-xs font-bold text-brand uppercase tracking-widest">About Me</span>
                         </div>
-                        <h3
-                            class="text-3xl font-extrabold text-brand mb-4 group-hover:scale-110 transition-transform relative z-10">
-                            MARKT</h3>
-                        <p class="font-medium text-brand-text text-lg relative z-10">Business</p>
-                    </div>
-                    <div
-                        class="p-10 rounded-3xl bg-white border border-brand-light hover:border-brand shadow-lg hover:shadow-brand/10 transition-all group relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-4 opacity-10">
-                            <span class="iconify text-brand w-24 h-24" data-icon="lucide:sparkles"></span>
+                        <h2 class="text-3xl md:text-5xl font-bold text-brand-text leading-tight">
+                            To me, marketing is more than communication.
+                        </h2>
+
+                        <p class="text-xl text-brand font-medium">It is strategy, responsibility, and entrepreneurial
+                            thinking.</p>
+
+                        <div class="prose prose-lg text-brand-gray/80 space-y-4 max-w-none">
+                            <p>I am <strong class="text-brand-text">Tanja</strong>, the founder of marknate. With my two
+                                children and my husband, I live in a beautiful old farmhouse near Zug. When you work
+                                with me, you can expect personal support with sensitivity, clarity, and honest feedback.
+                            </p>
+
+                            <p>To me, marketing is strategy, responsibility, and entrepreneurial thinking. At the same
+                                time, every message must have an emotional impact and create a real connection.</p>
+
+                            <p>For over 15 years, I have been working in strategic marketing, including at the
+                                Federation of Migros Cooperatives and the Migros Lucerne Cooperative.</p>
+
+                            <p>I have developed marketing strategies, led cross-departmental projects, held leadership
+                                responsibility, and assumed sales, margin, and revenue responsibility. I know marketing
+                                not only conceptually, but from an operational and overall economic perspective.</p>
+
+                            <!-- Mobile Portrait -->
+                            <div class="lg:hidden relative block w-full mt-8 mb-8">
+                                <img src="assets/imgs/hero.jpg" alt="Tanja Jans"
+                                    class="rounded-3xl shadow-xl object-cover w-full h-auto">
+                            </div>
+
+                            <p>I also taught marketing and sales at the Agricultural Education and Consulting Center
+                                LBBZ Schluechthof Cham at the College of Higher Education and Vocational School, and
+                                strategically support businesses in direct marketing.</p>
+
+                            <p>This combination of strategic practice, leadership experience, and teaching activity
+                                allows me to do one thing: structure complex contexts clearly and implement them
+                                effectively.</p>
+
+                            <div class="mt-8">
+                                <p class="text-2xl font-bold text-brand mt-8 tracking-wide font-display uppercase">
+                                    Clear. Inspiring. Effective.</p>
+                            </div>
                         </div>
-                        <h3
-                            class="text-3xl font-extrabold text-brand mb-4 group-hover:scale-110 transition-transform relative z-10">
-                            NATE</h3>
-                        <p class="font-medium text-brand-text text-lg relative z-10">Generate<br>Renew<br>Create
-                        </p>
                     </div>
                 </div>
-
-                <div class="relative max-w-3xl mx-auto">
-                    <span class="absolute -top-10 -left-10 text-9xl text-brand/10 font-serif leading-none">“</span>
-                    <blockquote
-                        class="text-2xl md:text-3xl font-display font-medium text-brand-text leading-relaxed relative z-10">
-                        Through my marketing expertise, I bring out the best in your company.
-                    </blockquote>
-                    <cite class="block mt-8 flex items-center justify-center gap-4">
-                        <div class="h-px w-12 bg-brand"></div>
-                        <span class="text-brand font-bold not-italic tracking-wide uppercase">Tanja Jans</span>
-                        <div class="h-px w-12 bg-brand"></div>
-                    </cite>
-                </div>
-
-
             </div>
         </section>
 
@@ -1047,308 +1065,195 @@
         <!-- Booking Section -->
         <section id="buchen" class="py-32 bg-white relative overflow-hidden" aria-label="Book a strategy call">
             <!-- Subtle background decoration -->
-            <div
-                class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand/20 to-transparent">
-            </div>
-            <div
-                class="absolute -top-[300px] -right-[200px] w-[600px] h-[600px] bg-brand/3 rounded-full blur-[120px] pointer-events-none">
-            </div>
-            <div
-                class="absolute -bottom-[200px] -left-[200px] w-[500px] h-[500px] bg-brand-light/30 rounded-full blur-[100px] pointer-events-none">
-            </div>
-
-            <div class="container max-w-7xl mx-auto px-6 relative z-10">
-                <!-- Section Header -->
-                <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-                    <div
-                        class="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-light/40 border border-brand/10 rounded-full mb-6">
-                        <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
-                        <span class="text-xs font-bold text-brand uppercase tracking-widest">Free &
-                            non-binding</span>
-                    </div>
-                    <h2 class="text-4xl md:text-5xl font-bold text-brand-text mb-6">Ready for the next step?
-                    </h2>
-                    <p class="text-xl text-brand-gray/70 leading-relaxed">
-                        Book a 30-minute free strategy call.
-                    </p>
-                </div>
-
-                <div class="grid lg:grid-cols-5 gap-12 lg:gap-16 items-start">
-                    <!-- Left: Benefits -->
-                    <div class="lg:col-span-2 space-y-8 reveal">
-                        <!-- Portrait + Intro -->
-                        <div class="flex items-center gap-5 mb-8">
-                            <div
-                                class="relative w-20 h-20 rounded-full overflow-hidden border-2 border-brand shadow-lg shrink-0">
-                                <img src="assets/imgs/hero.jpg" alt="Tanja Jans"
-                                    class="w-full h-full object-cover object-top">
-                            </div>
-                            <div>
-                                <p class="font-bold text-brand-text text-lg">Tanja Jans</p>
-                                <p class="text-sm text-brand-gray/60">Managing Director </p>
-                            </div>
-                        </div>
-
-                        <p class="text-brand-gray/70 leading-relaxed text-lg">
-                            In a personal conversation, we will analyze your current situation together and develop
-                            initial concrete steps for your success.
-                        </p>
-
-                        <!-- Benefits -->
-                        <div class="space-y-5 pt-4">
-                            <div class="booking-check flex items-start gap-4">
-                                <div
-                                    class="mt-0.5 w-8 h-8 rounded-xl bg-brand-light/50 flex items-center justify-center text-brand shrink-0">
-                                    <span class="iconify" data-icon="lucide:target" data-width="18"></span>
-                                </div>
-                                <div>
-                                    <p class="font-semibold text-brand-text">Clear assessment of your current situation
-                                    </p>
-                                    <p class="text-sm text-brand-gray/60 mt-1">We provide you with an objective
-                                        overview.</p>
-                                </div>
-                            </div>
-                            <div class="booking-check flex items-start gap-4">
-                                <div
-                                    class="mt-0.5 w-8 h-8 rounded-xl bg-brand-light/50 flex items-center justify-center text-brand shrink-0">
-                                    <span class="iconify" data-icon="lucide:route" data-width="18"></span>
-                                </div>
-                                <div>
-                                    <p class="font-semibold text-brand-text">Concrete next actionable steps</p>
-                                    <p class="text-sm text-brand-gray/60 mt-1">You will leave the call with a clear
-                                        plan.</p>
-                                </div>
-                            </div>
-                            <div class="booking-check flex items-start gap-4">
-                                <div
-                                    class="mt-0.5 w-8 h-8 rounded-xl bg-brand-light/50 flex items-center justify-center text-brand shrink-0">
-                                    <span class="iconify" data-icon="lucide:sparkles" data-width="18"></span>
-                                </div>
-                                <div>
-                                    <p class="font-semibold text-brand-text">Personal strategic consulting</p>
-                                    <p class="text-sm text-brand-gray/60 mt-1">Individual solutions instead of generic
-                                        recommendations.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Trust note -->
-                        <div class="pt-6 border-t border-gray-100">
-                            <div class="flex items-center gap-3">
-                                <div
-                                    class="w-10 h-10 rounded-full bg-brand/10 flex items-center justify-center text-brand">
-                                    <span class="iconify" data-icon="lucide:shield-check" data-width="20"></span>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-semibold text-brand-text">100% free & non-binding</p>
-                                    <p class="text-xs text-brand-gray/50">No risks. No fine print.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Right: Booking Card -->
-                    <div class="lg:col-span-3 reveal">
+            <!-- Kontakt Section -->
+            <section id="kontakt" class="py-24 bg-gray-50/50 relative border-t border-gray-100" aria-label="Contact">
+                <div class="container max-w-7xl mx-auto px-6">
+                    <!-- Section Header -->
+                    <div class="text-center max-w-3xl mx-auto mb-16 reveal">
                         <div
-                            class="bg-white rounded-3xl booking-glow border border-gray-100/80 overflow-hidden p-10 md:p-14 flex flex-col items-center text-center">
-                            <!-- Calendar icon -->
-                            <div
-                                class="w-20 h-20 rounded-2xl bg-brand-light/50 flex items-center justify-center text-brand mb-8">
-                                <span class="iconify" data-icon="lucide:calendar-check" data-width="40"></span>
+                            class="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-light/40 border border-brand/10 rounded-full mb-6">
+                            <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+                            <span class="text-xs font-bold text-brand uppercase tracking-widest">Get in
+                                touch</span>
+                        </div>
+                        <h2 class="text-4xl md:text-5xl font-bold text-brand-text mb-6">Ready for the next step?
+                        </h2>
+                        <p class="text-xl text-brand-gray/70 leading-relaxed">
+                            Send me an email, call me, or directly book a free strategy call.
+                        </p>
+                    </div>
+
+                    <div class="grid lg:grid-cols-2 gap-16 items-start">
+                        <!-- Info -->
+                        <div class="space-y-10 lg:sticky lg:top-32">
+                            <div>
+                                <h2 class="text-3xl md:text-4xl font-bold text-brand-text mb-4">CONTACT</h2>
+                                <div class="h-1 w-16 bg-brand/40 mb-4"></div>
+                                <p class="text-lg text-brand-gray/70 leading-relaxed">
+                                    Prefer email or phone? No problem – I look forward to hearing from you.
+                                </p>
                             </div>
 
-                            <h3 class="text-2xl font-bold text-brand-text mb-3">30-Minute Strategy Call</h3>
-                            <p class="text-brand-gray/60 mb-8 max-w-md">
-                                Choose your preferred date – you will receive a confirmation directly by email.
-                            </p>
+                            <div class="space-y-8">
+                                <div class="flex items-center gap-6 group">
+                                    <div
+                                        class="w-14 h-14 bg-brand-light/50 rounded-2xl flex items-center justify-center text-brand shrink-0 group-hover:bg-brand group-hover:text-white transition-all duration-300 shadow-sm">
+                                        <span class="iconify" data-icon="lucide:map-pin" data-width="24"></span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-brand-text text-lg mb-1">Address</h4>
+                                        <p class="text-brand-gray">Marknate, Tanja Jans GmbH<br>Freudenberg 1, CH-6312
+                                            Steinhausen</p>
+                                    </div>
+                                </div>
 
-                            <!-- Calendly Popup Button -->
-                            <a href=""
-                                onclick="Calendly.initPopupWidget({url: 'https://calendly.com/janstanja1/30min'});return false;"
-                                class="w-full max-w-sm py-5 bg-brand text-white font-bold rounded-xl hover:bg-brand-dark transition-all shadow-lg hover:shadow-brand/30 flex items-center justify-center gap-3 group text-lg">
-                                <span class="iconify" data-icon="lucide:calendar-check" data-width="22"></span>
-                                Choose an appointment
-                                <span class="iconify group-hover:translate-x-1 transition-transform"
-                                    data-icon="lucide:arrow-right" data-width="20"></span>
-                            </a>
+                                <div class="flex items-center gap-6 group">
+                                    <div
+                                        class="w-14 h-14 bg-brand-light/50 rounded-2xl flex items-center justify-center text-brand shrink-0 group-hover:bg-brand group-hover:text-white transition-all duration-300 shadow-sm">
+                                        <span class="iconify" data-icon="lucide:phone" data-width="24"></span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-brand-text text-lg mb-1">Telephone</h4>
+                                        <a href="tel:+41796729500"
+                                            class="text-brand-gray hover:text-brand transition-colors text-lg font-medium">
+                                            +41 78 812 95 00</a>
+                                    </div>
+                                </div>
 
-                            <!-- Microcopy -->
-                            <div class="flex items-center justify-center gap-2 mt-6 text-sm text-brand-gray/50">
-                                <span class="iconify" data-icon="lucide:mail-check" data-width="16"></span>
-                                <p>You will receive an instant confirmation via email.</p>
+                                <div class="flex items-center gap-6 group">
+                                    <div
+                                        class="w-14 h-14 bg-brand-light/50 rounded-2xl flex items-center justify-center text-brand shrink-0 group-hover:bg-brand group-hover:text-white transition-all duration-300 shadow-sm">
+                                        <span class="iconify" data-icon="lucide:mail" data-width="24"></span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-brand-text text-lg mb-1">Email</h4>
+                                        <a href="mailto:info@marknate.ch"
+                                            class="text-brand-gray hover:text-brand transition-colors text-lg font-medium">info@marknate.ch</a>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-6 group">
+                                    <div
+                                        class="w-14 h-14 bg-brand-light/50 rounded-2xl flex items-center justify-center text-brand shrink-0 group-hover:bg-brand group-hover:text-white transition-all duration-300 shadow-sm">
+                                        <span class="iconify" data-icon="lucide:linkedin" data-width="24"></span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-brand-text text-lg mb-1">LinkedIn</h4>
+                                        <a href="https://www.linkedin.com/in/tanja-jans-0a991395/" target="_blank"
+                                            class="text-brand-gray hover:text-brand transition-colors text-lg font-medium">Tanja
+                                            Jans</a>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-6 group">
+                                    <div
+                                        class="w-14 h-14 bg-brand-light/50 rounded-2xl flex items-center justify-center text-brand shrink-0 group-hover:bg-brand group-hover:text-white transition-all duration-300 shadow-sm">
+                                        <span class="iconify" data-icon="lucide:calendar" data-width="24"></span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-brand-text text-lg mb-1">Book Appointment</h4>
+                                        <a href=""
+                                            onclick="Calendly.initPopupWidget({url: 'https://calendly.com/janstanja1/30min'});return false;"
+                                            class="text-brand-gray hover:text-brand transition-colors text-lg font-medium">30-Minute
+                                            Strategy Call</a>
+                                    </div>
+                                </div>
                             </div>
+
+
+                        </div>
+
+                        <!-- Form -->
+                        <div
+                            class="bg-white p-8 md:p-12 rounded-[2rem] shadow-2xl shadow-brand-light/50 border border-gray-100">
+                            <h3 class="text-xl font-bold text-brand-text mb-6">Write to me</h3>
+                            <form id="contact-form" action="/submit" method="POST" class="space-y-6"
+                                data-recaptcha-site-key="6Ldk0HAsAAAAAOXJ7xYVmN080TEA9y0ZpcjRuixb" novalidate>
+                                <!-- Honeypot (hidden from users, catches bots) -->
+                                <div style="position:absolute;left:-9999px;" aria-hidden="true">
+                                    <input type="text" name="website" tabindex="-1" autocomplete="off">
+                                </div>
+
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div class="relative group">
+                                        <input type="text" id="vorname" name="vorname"
+                                            class="peer w-full px-4 py-4 rounded-xl bg-gray-50 border border-gray-200 focus:border-brand focus:ring-2 focus:ring-brand/20 outline-none transition-all placeholder-transparent"
+                                            placeholder="Vorname" required>
+                                        <label for="vorname"
+                                            class="absolute left-4 top-4 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-brand peer-focus:bg-white peer-focus:px-1 cursor-text peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:bg-white peer-not-placeholder-shown:px-1">First
+                                            Name
+                                            *</label>
+                                    </div>
+                                    <div class="relative group">
+                                        <input type="text" id="nachname" name="nachname"
+                                            class="peer w-full px-4 py-4 rounded-xl bg-gray-50 border border-gray-200 focus:border-brand focus:ring-2 focus:ring-brand/20 outline-none transition-all placeholder-transparent"
+                                            placeholder="Nachname" required>
+                                        <label for="nachname"
+                                            class="absolute left-4 top-4 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-brand peer-focus:bg-white peer-focus:px-1 cursor-text peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:bg-white peer-not-placeholder-shown:px-1">Last
+                                            Name
+                                            *</label>
+                                    </div>
+                                </div>
+
+                                <div class="relative group">
+                                    <input type="email" id="email" name="email"
+                                        class="peer w-full px-4 py-4 rounded-xl bg-gray-50 border border-gray-200 focus:border-brand focus:ring-2 focus:ring-brand/20 outline-none transition-all placeholder-transparent"
+                                        placeholder="E-Mail" required>
+                                    <label for="email"
+                                        class="absolute left-4 top-4 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-brand peer-focus:bg-white peer-focus:px-1 cursor-text peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:bg-white peer-not-placeholder-shown:px-1">Email
+                                        Address *</label>
+                                </div>
+
+                                <div class="relative group">
+                                    <textarea id="message" name="message" rows="5"
+                                        class="peer w-full px-4 py-4 rounded-xl bg-gray-50 border border-gray-200 focus:border-brand focus:ring-2 focus:ring-brand/20 outline-none transition-all placeholder-transparent"
+                                        placeholder="Nachricht" required></textarea>
+                                    <label for="message"
+                                        class="absolute left-4 top-4 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-brand peer-focus:bg-white peer-focus:px-1 cursor-text peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:bg-white peer-not-placeholder-shown:px-1">Your
+                                        Message *</label>
+                                </div>
+
+                                <div class="flex items-start gap-3">
+                                    <input type="checkbox" id="privacy" name="privacy" value="yes"
+                                        class="mt-1 w-4 h-4 text-brand rounded border-gray-300 focus:ring-brand cursor-pointer"
+                                        required>
+                                    <label for="privacy" class="text-sm text-brand-gray cursor-pointer select-none">
+                                        I agree that my details will be permanently stored. (Data protection compliant
+                                        according to DSG/FADP)
+                                    </label>
+                                </div>
+
+                                <button type="submit"
+                                    class="w-full py-5 bg-brand text-white font-bold rounded-xl hover:bg-brand-dark transition-all shadow-lg hover:shadow-brand/30 flex items-center justify-center gap-2 group">
+                                    <!-- Default state -->
+                                    <span class="btn-text flex items-center gap-2">
+                                        <span class="iconify" data-icon="lucide:send"></span>
+                                        Send Message
+                                    </span>
+                                    <!-- Loading state -->
+                                    <span class="btn-loader hidden flex items-center gap-2">
+                                        <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                                stroke-width="4"></circle>
+                                            <path class="opacity-75" fill="currentColor"
+                                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                                        </svg>
+                                        Sending...
+                                    </span>
+                                    <!-- Success state -->
+                                    <span class="btn-success hidden flex items-center gap-2">
+                                        <span class="iconify" data-icon="lucide:check-circle"></span>
+                                        Sent!
+                                    </span>
+                                </button>
+
+                                <!-- Status message -->
+                                <div id="form-status" class="hidden"></div>
+                            </form>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Kontakt Section -->
-        <section id="kontakt" class="py-24 bg-gray-50/50 relative border-t border-gray-100" aria-label="Contact">
-            <div class="container max-w-7xl mx-auto px-6">
-                <div class="grid lg:grid-cols-2 gap-16 items-start">
-                    <!-- Info -->
-                    <div class="space-y-10 lg:sticky lg:top-32">
-                        <div>
-                            <h2 class="text-3xl md:text-4xl font-bold text-brand-text mb-4">CONTACT</h2>
-                            <div class="h-1 w-16 bg-brand/40 mb-4"></div>
-                            <p class="text-lg text-brand-gray/70 leading-relaxed">
-                                Prefer email or phone? No problem – I look forward to hearing from you.
-                            </p>
-                            <a href="#buchen"
-                                class="inline-flex items-center gap-2 mt-4 text-brand font-semibold text-sm hover:text-brand-dark transition-colors">
-                                <span class="iconify" data-icon="lucide:calendar-check" data-width="16"></span>
-                                Or book a strategy call directly
-                                <span class="iconify" data-icon="lucide:arrow-up" data-width="14"></span>
-                            </a>
-                        </div>
-
-                        <div class="space-y-8">
-                            <div class="flex items-center gap-6 group">
-                                <div
-                                    class="w-14 h-14 bg-brand-light/50 rounded-2xl flex items-center justify-center text-brand shrink-0 group-hover:bg-brand group-hover:text-white transition-all duration-300 shadow-sm">
-                                    <span class="iconify" data-icon="lucide:map-pin" data-width="24"></span>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-brand-text text-lg mb-1">Address</h4>
-                                    <p class="text-brand-gray">Marknate, Tanja Jans GmbH<br>Freudenberg 1, CH-6312
-                                        Steinhausen</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-center gap-6 group">
-                                <div
-                                    class="w-14 h-14 bg-brand-light/50 rounded-2xl flex items-center justify-center text-brand shrink-0 group-hover:bg-brand group-hover:text-white transition-all duration-300 shadow-sm">
-                                    <span class="iconify" data-icon="lucide:phone" data-width="24"></span>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-brand-text text-lg mb-1">Telephone</h4>
-                                    <a href="tel:+41796729500"
-                                        class="text-brand-gray hover:text-brand transition-colors text-lg font-medium">
-                                        +41 78 812 95 00</a>
-                                </div>
-                            </div>
-
-                            <div class="flex items-center gap-6 group">
-                                <div
-                                    class="w-14 h-14 bg-brand-light/50 rounded-2xl flex items-center justify-center text-brand shrink-0 group-hover:bg-brand group-hover:text-white transition-all duration-300 shadow-sm">
-                                    <span class="iconify" data-icon="lucide:mail" data-width="24"></span>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-brand-text text-lg mb-1">Email</h4>
-                                    <a href="mailto:info@marknate.ch"
-                                        class="text-brand-gray hover:text-brand transition-colors text-lg font-medium">info@marknate.ch</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Socials & Profile -->
-                        <div class="pt-10 border-t border-gray-100 flex flex-col sm:flex-row items-center gap-8">
-                            <div class="text-center sm:text-left">
-                                <div class="flex gap-4 justify-center sm:justify-start mb-3">
-                                    <a href="https://www.linkedin.com/in/tanja-jans-0a991395/" target="_blank"
-                                        class="w-10 h-10 rounded-full bg-brand-text text-white flex items-center justify-center hover:bg-brand hover:-translate-y-1 transition-all shadow-md">
-                                        <span class="iconify" data-icon="lucide:linkedin" data-width="20"></span>
-                                    </a>
-
-                                </div>
-                                <p class="text-sm text-brand-gray italic">"You can find everything about my background
-                                    on LinkedIn."</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Form -->
-                    <div
-                        class="bg-white p-8 md:p-12 rounded-[2rem] shadow-2xl shadow-brand-light/50 border border-gray-100">
-                        <h3 class="text-xl font-bold text-brand-text mb-6">Write to me</h3>
-                        <form id="contact-form" action="/submit" method="POST" class="space-y-6"
-                            data-recaptcha-site-key="6Ldk0HAsAAAAAOXJ7xYVmN080TEA9y0ZpcjRuixb" novalidate>
-                            <!-- Honeypot (hidden from users, catches bots) -->
-                            <div style="position:absolute;left:-9999px;" aria-hidden="true">
-                                <input type="text" name="website" tabindex="-1" autocomplete="off">
-                            </div>
-
-                            <div class="grid md:grid-cols-2 gap-6">
-                                <div class="relative group">
-                                    <input type="text" id="vorname" name="vorname"
-                                        class="peer w-full px-4 py-4 rounded-xl bg-gray-50 border border-gray-200 focus:border-brand focus:ring-2 focus:ring-brand/20 outline-none transition-all placeholder-transparent"
-                                        placeholder="Vorname" required>
-                                    <label for="vorname"
-                                        class="absolute left-4 top-4 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-brand peer-focus:bg-white peer-focus:px-1 cursor-text peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:bg-white peer-not-placeholder-shown:px-1">First
-                                        Name
-                                        *</label>
-                                </div>
-                                <div class="relative group">
-                                    <input type="text" id="nachname" name="nachname"
-                                        class="peer w-full px-4 py-4 rounded-xl bg-gray-50 border border-gray-200 focus:border-brand focus:ring-2 focus:ring-brand/20 outline-none transition-all placeholder-transparent"
-                                        placeholder="Nachname" required>
-                                    <label for="nachname"
-                                        class="absolute left-4 top-4 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-brand peer-focus:bg-white peer-focus:px-1 cursor-text peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:bg-white peer-not-placeholder-shown:px-1">Last
-                                        Name
-                                        *</label>
-                                </div>
-                            </div>
-
-                            <div class="relative group">
-                                <input type="email" id="email" name="email"
-                                    class="peer w-full px-4 py-4 rounded-xl bg-gray-50 border border-gray-200 focus:border-brand focus:ring-2 focus:ring-brand/20 outline-none transition-all placeholder-transparent"
-                                    placeholder="E-Mail" required>
-                                <label for="email"
-                                    class="absolute left-4 top-4 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-brand peer-focus:bg-white peer-focus:px-1 cursor-text peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:bg-white peer-not-placeholder-shown:px-1">Email
-                                    Address *</label>
-                            </div>
-
-                            <div class="relative group">
-                                <textarea id="message" name="message" rows="5"
-                                    class="peer w-full px-4 py-4 rounded-xl bg-gray-50 border border-gray-200 focus:border-brand focus:ring-2 focus:ring-brand/20 outline-none transition-all placeholder-transparent"
-                                    placeholder="Nachricht" required></textarea>
-                                <label for="message"
-                                    class="absolute left-4 top-4 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-brand peer-focus:bg-white peer-focus:px-1 cursor-text peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:bg-white peer-not-placeholder-shown:px-1">Your
-                                    Message *</label>
-                            </div>
-
-                            <div class="flex items-start gap-3">
-                                <input type="checkbox" id="privacy" name="privacy" value="yes"
-                                    class="mt-1 w-4 h-4 text-brand rounded border-gray-300 focus:ring-brand cursor-pointer"
-                                    required>
-                                <label for="privacy" class="text-sm text-brand-gray cursor-pointer select-none">
-                                    I agree that my details will be permanently stored. (Data protection compliant
-                                    according to DSG/FADP)
-                                </label>
-                            </div>
-
-                            <button type="submit"
-                                class="w-full py-5 bg-brand text-white font-bold rounded-xl hover:bg-brand-dark transition-all shadow-lg hover:shadow-brand/30 flex items-center justify-center gap-2 group">
-                                <!-- Default state -->
-                                <span class="btn-text flex items-center gap-2">
-                                    <span class="iconify" data-icon="lucide:send"></span>
-                                    Send Message
-                                </span>
-                                <!-- Loading state -->
-                                <span class="btn-loader hidden flex items-center gap-2">
-                                    <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
-                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                            stroke-width="4"></circle>
-                                        <path class="opacity-75" fill="currentColor"
-                                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-                                    </svg>
-                                    Sending...
-                                </span>
-                                <!-- Success state -->
-                                <span class="btn-success hidden flex items-center gap-2">
-                                    <span class="iconify" data-icon="lucide:check-circle"></span>
-                                    Sent!
-                                </span>
-                            </button>
-
-                            <!-- Status message -->
-                            <div id="form-status" class="hidden"></div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
 
     </main>
 
@@ -1398,19 +1303,21 @@
                             class="w-12 h-12 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center text-brand hover:bg-brand hover:text-white hover:border-brand transition-all">
                             <span class="iconify" data-icon="lucide:linkedin" data-width="20"></span>
                         </a>
+                        <a href="https://www.instagram.com/markn.ate/" target="_blank"
+                            class="w-12 h-12 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center text-brand hover:bg-brand hover:text-white hover:border-brand transition-all">
+                            <span class="iconify" data-icon="lucide:instagram" data-width="20"></span>
+                        </a>
+                    </div>
+                </div>
 
+                <div
+                    class="pt-8 border-t border-brand/20 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-brand-gray">
+                    <p>&copy; 2026 Marknate, Tanja Jans GmbH. All rights reserved.</p>
+                    <div class="flex items-center gap-1">
+                        Made with <span class="text-brand animate-pulse">♥</span> in Switzerland
                     </div>
                 </div>
             </div>
-
-            <div
-                class="pt-8 border-t border-brand/20 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-brand-gray">
-                <p>&copy; 2026 Marknate, Tanja Jans GmbH. All rights reserved.</p>
-                <div class="flex items-center gap-1">
-                    Made with <span class="text-brand animate-pulse">♥</span> in Switzerland
-                </div>
-            </div>
-        </div>
     </footer>
 
     <!-- Legal Modals -->
@@ -1528,6 +1435,17 @@
     <!-- Calendly widget script -->
     <script type="text/javascript" src="assets/js/calendly-widget.js" async></script>
     <script src="assets/js/contact-form.js?v=2026-02-19-1"></script>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/41788129500" target="_blank" rel="noopener noreferrer"
+        class="fixed bottom-[90px] right-5 z-50 w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-lg shadow-[#25D366]/30 hover:scale-110 transition-all duration-300 group">
+        <span class="iconify" data-icon="ic:baseline-whatsapp" data-width="32"></span>
+        <!-- Tooltip -->
+        <span
+            class="absolute right-full mr-4 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-gray-900 text-white text-sm font-medium rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 whitespace-nowrap shadow-md">
+            Chat on WhatsApp
+        </span>
+    </a>
 
     <script>
         // Smooth scroll fix for standard links
