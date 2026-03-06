@@ -7,8 +7,8 @@ binding = "ASSETS"
 directory = "./dist"
 
 [vars]
-CONTACT_EMAIL = "info@marknate.ch"
-MAIL_FROM = "noreply@marknate.ch"
+CONTACT_EMAIL = "yapepo@gmail.com"
+MAIL_FROM = "info@marknate.ch"
 
 # RESEND_API_KEY must be stored as a Wrangler secret:
 # wrangler secret put RESEND_API_KEY
