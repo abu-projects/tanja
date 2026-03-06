@@ -72,7 +72,7 @@ export async function onRequestPost(context) {
             );
         }
 
-        const recipient = context.env?.CONTACT_EMAIL || 'yapepo@gmail.com';
+        const recipient = context.env?.CONTACT_EMAIL || 'info@marknate.ch';
         // Use your verified domain sender, or fallback to your domain
         const fromEmail = context.env?.MAIL_FROM || 'info@marknate.ch';
         const fromName = 'Marknate Website';
