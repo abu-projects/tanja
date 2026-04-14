@@ -203,7 +203,7 @@
                 }
             } catch (_) {
                 setButtonState('default');
-                showStatus('error', 'Verbindungsfehler. Bitte versuchen Sie es erneut oder schreiben Sie an info@marknate.ch.');
+                showStatus('error', 'Verbindungsfehler. Bitte versuchen Sie es erneut oder schreiben Sie an tanja@marknate.ch.');
             }
         });
 

@@ -64,7 +64,7 @@ export async function onRequestPost(context) {
             return json(
                 {
                     success: false,
-                    message: 'E-Mail-Versand ist momentan nicht verfügbar. Bitte schreiben Sie direkt an info@marknate.ch.',
+                    message: 'E-Mail-Versand ist momentan nicht verfügbar. Bitte schreiben Sie direkt an tanja@marknate.ch.',
                     details: 'RESEND_API_KEY ist nicht gesetzt.',
                 },
                 500,
@@ -147,7 +147,7 @@ export async function onRequestPost(context) {
         return json(
             {
                 success: false,
-                message: 'E-Mail-Versand fehlgeschlagen. Bitte versuchen Sie es später erneut oder schreiben Sie direkt an info@marknate.ch.',
+                message: 'E-Mail-Versand fehlgeschlagen. Bitte versuchen Sie es später erneut oder schreiben Sie direkt an tanja@marknate.ch.',
                 details: `Resend ${resendResponse.status}: ${providerError}`,
             },
             500,
@@ -157,7 +157,7 @@ export async function onRequestPost(context) {
         return json(
             {
                 success: false,
-                message: 'Es gab einen Fehler beim Senden. Bitte versuchen Sie es erneut oder schreiben Sie direkt an info@marknate.ch.',
+                message: 'Es gab einen Fehler beim Senden. Bitte versuchen Sie es erneut oder schreiben Sie direkt an tanja@marknate.ch.',
                 details: `Runtime: ${String(err)}`,
             },
             500,

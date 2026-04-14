@@ -165,6 +165,6 @@ if ($sent) {
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'message' => 'Es gab einen Fehler beim Senden. Bitte versuchen Sie es erneut oder schreiben Sie direkt an info@marknate.ch.'
+        'message' => 'Es gab einen Fehler beim Senden. Bitte versuchen Sie es erneut oder schreiben Sie direkt an tanja@marknate.ch.'
     ]);
 }
