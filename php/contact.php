@@ -1,7 +1,7 @@
 <?php
 /**
  * Marknate Contact Form Handler
- * Sends form submissions to info@marknate.ch
+ * Sends form submissions to tanja@marknate.ch
  */
 
 // Set response headers
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // Configuration
-$recipient = 'info@marknate.ch';
+$recipient = 'tanja@marknate.ch';
 $subject_prefix = '[Marknate Kontaktformular]';
 
 // Get and sanitize input

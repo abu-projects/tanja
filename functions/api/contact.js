@@ -6,7 +6,7 @@
  * Required env vars (set as secrets):
  * - RESEND_API_KEY
  * Optional env vars:
- * - CONTACT_EMAIL (default: info@marknate.ch)
+ * - CONTACT_EMAIL (default: tanja@marknate.ch)
  * - MAIL_FROM (default: onboarding@resend.dev)
  */
 
@@ -72,9 +72,9 @@ export async function onRequestPost(context) {
             );
         }
 
-        const recipient = context.env?.CONTACT_EMAIL || 'info@marknate.ch';
+        const recipient = context.env?.CONTACT_EMAIL || 'tanja@marknate.ch';
         // Use your verified domain sender, or fallback to your domain
-        const fromEmail = context.env?.MAIL_FROM || 'info@marknate.ch';
+        const fromEmail = context.env?.MAIL_FROM || 'tanja@marknate.ch';
         const fromName = 'Marknate Website';
         const fullName = `${vorname} ${nachname}`;
         const date = new Date().toLocaleString('de-CH');
